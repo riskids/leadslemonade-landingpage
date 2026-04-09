@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://leadslemonade.com"),
   title: "LeadsLemonade | Leads Generation Platform",
   description:
     "Find anyone using natural language, verify emails in real-time, and start for as low as $5. AI-powered lead discovery with 99.9% deliverability.",
@@ -19,6 +20,22 @@ export const metadata: Metadata = {
     description:
       "Find anyone using natural language, verify emails in real-time, and start for as low as $5.",
     type: "website",
+    url: "https://leadslemonade.com",
+    images: [
+      {
+        url: "/thumbnail.png",
+        width: 1200,
+        height: 630,
+        alt: "LeadsLemonade - Search for anyone easily",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LeadsLemonade | Leads Generation Platform",
+    description:
+      "Find anyone using natural language, verify emails in real-time, and start for as low as $5.",
+    images: ["/thumbnail.png"],
   },
 };
 
