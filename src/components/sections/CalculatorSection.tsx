@@ -5,7 +5,7 @@ import { useState } from "react";
 const MIN = 100;
 const MAX = 50000;
 const STEP = 100;
-const PRICE_PER_LEAD = 0.03; // $5 for 100 leads
+const PRICE_PER_LEAD = 0.05; // $5 for 100 leads
 
 function formatNumber(n: number) {
   return n.toLocaleString("en-US");

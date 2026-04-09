@@ -21,7 +21,7 @@ const plans = [
     badge: "Most Popular",
     featured: true,
     features: [
-      "50 Lead Credits",
+      "100 Lead Credits",
       "One-time purchase",
       "Premium verification",
       "No hidden fee",
@@ -41,7 +41,7 @@ const plans = [
       "Pay less for information detail",
       "Premium verification",
       "No hidden fee",
-      "Scale with only $8 per 100 credit top-ups",
+      "Scale with only $4 per 100 credit top-ups",
     ],
     cta: "Select Plan",
     ctaStyle: "outline",
@@ -65,9 +65,8 @@ export default function PricingSection() {
           <div
             key={plan.id}
             id={`pricing-card-${plan.id}`}
-            className={`glass-card p-8 rounded-2xl flex flex-col hover:-translate-y-2 transition-all duration-300 relative ${
-              plan.featured ? "scale-105 z-10 shadow-[0_0_50px_rgba(83,216,227,0.1)]" : ""
-            }`}
+            className={`glass-card p-8 rounded-2xl flex flex-col hover:-translate-y-2 transition-all duration-300 relative ${plan.featured ? "scale-105 z-10 shadow-[0_0_50px_rgba(83,216,227,0.1)]" : ""
+              }`}
             style={
               plan.featured
                 ? { borderColor: "rgba(83,216,227,0.4)" }
