@@ -32,11 +32,11 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="py-24 relative overflow-hidden" style={{ background: "#090f15" }}>
+    <section id="features" className="py-16 md:py-24 relative overflow-hidden" style={{ background: "#090f15" }}>
       <div className="max-w-7xl mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight mb-4" style={{ color: "#dde3ec" }}>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4" style={{ color: "#dde3ec" }}>
             AI-Powered Lead Discovery
           </h2>
         </div>
@@ -47,7 +47,7 @@ export default function FeaturesSection() {
             <div
               key={f.id}
               id={`feature-card-${f.id}`}
-              className="glass-card p-8 rounded-2xl transition-all duration-300 cursor-default hover:brightness-125"
+              className="glass-card p-6 md:p-8 rounded-2xl transition-all duration-300 cursor-default hover:brightness-125"
             >
               <div
                 className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"

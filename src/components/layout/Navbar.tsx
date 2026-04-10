@@ -15,6 +15,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<string>("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -82,8 +83,8 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* CTA Buttons */}
-      <div className="flex items-center gap-4">
+      {/* Desktop CTA Buttons */}
+      <div className="hidden md:flex items-center gap-4">
         <Link
           href="/maintenance"
           id="nav-login-btn"
@@ -99,6 +100,58 @@ export default function Navbar() {
           Get Started
         </Link>
       </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        className="md:hidden text-slate-400 p-2"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        <span className="material-symbols-outlined text-3xl">
+          {isMobileMenuOpen ? "close" : "menu"}
+        </span>
+      </button>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div
+          className="absolute top-20 left-0 w-full p-6 flex flex-col gap-6 md:hidden shadow-2xl border-t border-white/5"
+          style={{ background: "rgba(7, 26, 31, 0.98)", backdropFilter: "blur(20px)" }}
+        >
+          <div className="flex flex-col gap-4 text-center">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={
+                  isActive(link)
+                    ? "text-cyan-400 text-lg font-bold"
+                    : "text-slate-300 hover:text-cyan-200 text-lg font-medium"
+                }
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-col gap-3 pt-4 border-t border-white/10">
+            <Link
+              href="/maintenance"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-slate-300 hover:text-cyan-200 text-center text-lg font-medium py-3 rounded-xl border border-white/10"
+            >
+              Login
+            </Link>
+            <Link
+              href="/maintenance"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="bg-cyan-400 text-cyan-950 text-center py-3 rounded-xl text-lg font-bold shadow-lg shadow-cyan-400/20"
+            >
+              Get Started
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

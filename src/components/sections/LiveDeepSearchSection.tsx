@@ -83,12 +83,13 @@ const keywords = ["SOFTWARE DEVELOPMENT", "DIGITAL PAYMENTS", "RIDE-HAILING", "F
 /* ─── Detailed Profile Card ─── */
 function DetailedProfileCard() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center p-4 z-40 pointer-events-none">
+    <div className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none sm:p-4">
       <div
-        className="glass-card w-full max-w-2xl rounded-[2.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col pointer-events-auto scroll-reveal-target overflow-y-auto scale-[0.8]"
+        className="glass-card w-[calc(100vw-2rem)] sm:w-full max-w-2xl rounded-2xl sm:rounded-[2.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col pointer-events-auto scroll-reveal-target overflow-y-auto scale-100 lg:scale-[0.8] max-h-full lg:max-h-[54rem]"
         style={{
           transformOrigin: "center center",
-          height: "54rem;",
+          height: "100%",
+          minHeight: "100%",
           borderColor: "rgba(83,216,227,0.3)",
           scrollbarWidth: "thin",
           scrollbarColor: "#3c494a #090f15",
@@ -436,7 +437,7 @@ export default function LiveDeepSearchSection() {
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
           {/* Left: Copy */}
           <div className="lg:col-span-4 z-30">
-            <h2 className="text-4xl font-bold mb-6" style={{ color: "#53d8e3" }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: "#53d8e3" }}>
               Live Deep Search
             </h2>
             <p className="mb-8 leading-relaxed" style={{ color: "#bbc9ca" }}>
@@ -462,7 +463,7 @@ export default function LiveDeepSearchSection() {
 
           {/* Right: Cards panel */}
           <div className="lg:col-span-8">
-            <div className="relative min-h-[500px] flex items-center justify-center scale-[1.05] origin-center">
+            <div className="relative h-[85vh] lg:h-auto lg:min-h-[500px] flex flex-col items-center justify-center scale-100 lg:scale-[1.05] origin-center">
 
               {/* Search Grid — blurs on scroll */}
               <div className="glass-card rounded-2xl overflow-hidden shadow-2xl scroll-blur-target w-full max-w-xl mx-auto">

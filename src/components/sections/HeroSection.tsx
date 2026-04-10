@@ -81,15 +81,14 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-[750px] flex flex-col items-center justify-center text-center px-6 hero-gradient pt-20">
       {/* Headline */}
-      <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4 max-w-4xl leading-[1.1]">
+      <h1 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tight mb-4 max-w-4xl leading-[1.1]">
         Search for{" "}
         <span
           className="inline-block relative overflow-hidden align-bottom text-left"
           style={{ height: "1.1em" }}
         >
           <span
-            className="flex flex-col animate-word-slide"
-            style={{ width: "19rem" }}
+            className="flex flex-col animate-word-slide w-full"
           >
             <span>founder</span>
             <span>owner</span>
@@ -110,9 +109,9 @@ export default function HeroSection() {
       {/* Search Bar — wider to accommodate long placeholder text */}
       <div
         id="hero-search-bar"
-        className="w-full max-w-5xl glass-card rounded-2xl p-2 flex items-center shadow-2xl"
+        className="w-full max-w-5xl glass-card rounded-2xl p-2 flex flex-col sm:flex-row items-center shadow-2xl gap-2 sm:gap-0"
       >
-        <div className="flex-1 min-w-0 flex items-center px-4">
+        <div className="flex-1 w-full min-w-0 flex items-center px-4 py-2 sm:py-0">
           <span
             className="material-symbols-outlined mr-3 shrink-0"
             style={{ color: "#53d8e3" }}
@@ -124,7 +123,7 @@ export default function HeroSection() {
         <Link
           href="/maintenance"
           id="hero-cta-btn"
-          className="shrink-0 font-bold px-8 py-4 rounded-xl hover:opacity-90 transition-all flex items-center gap-2 whitespace-nowrap"
+          className="shrink-0 font-bold px-8 py-4 w-full sm:w-auto rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2 whitespace-nowrap"
           style={{
             background: "linear-gradient(135deg, #53d8e3 0%, #00afb9 100%)",
             color: "#00363a",

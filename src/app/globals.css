@@ -177,17 +177,29 @@ body {
    ========================================= */
 
 .sticky-container {
-  height: 225vh;
+  height: auto;
   view-timeline-name: --scroll-sequence;
 }
 
 .sticky-content {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
+  padding: 4rem 0;
+}
+
+@media (min-width: 1024px) {
+  .sticky-container {
+    height: 225vh;
+  }
+  .sticky-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0;
+  }
 }
 
 .scroll-blur-target {

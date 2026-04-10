@@ -25,8 +25,8 @@ export default function CalculatorSection() {
   const hours = estimateHours(leads);
 
   return (
-    <section id="calculator" className="py-24 px-8 max-w-5xl mx-auto">
-      <div className="glass-card rounded-[2rem] p-12 relative overflow-hidden">
+    <section id="calculator" className="py-16 md:py-24 px-4 sm:px-8 max-w-5xl mx-auto">
+      <div className="glass-card rounded-[2rem] p-6 md:p-12 relative overflow-hidden">
         <div className="relative z-10">
           <h2 className="text-3xl font-bold mb-2" style={{ color: "#dde3ec" }}>
             Estimate Your Cost
@@ -70,7 +70,7 @@ export default function CalculatorSection() {
 
             {/* Result */}
             <div
-              className="grid md:grid-cols-2 gap-8 items-center p-8 rounded-2xl border"
+              className="grid md:grid-cols-2 gap-6 md:gap-8 items-center p-5 md:p-8 rounded-2xl border"
               style={{
                 background: "rgba(9,15,21,0.5)",
                 borderColor: "rgba(60,73,74,0.1)",
@@ -80,7 +80,7 @@ export default function CalculatorSection() {
                 <p className="text-xs uppercase mb-1" style={{ color: "#bbc9ca" }}>
                   Estimated Cost
                 </p>
-                <p className="text-5xl font-black" style={{ color: "#53d8e3" }}>
+                <p className="text-4xl md:text-5xl font-black" style={{ color: "#53d8e3" }}>
                   ${cost.toFixed(2)}
                   <span className="text-lg font-medium" style={{ color: "#bbc9ca" }}>
                     /mo
