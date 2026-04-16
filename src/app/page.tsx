@@ -6,6 +6,7 @@ import FeaturesSection from "@/components/sections/FeaturesSection";
 import CalculatorSection from "@/components/sections/CalculatorSection";
 import PricingSection from "@/components/sections/PricingSection";
 import CTASection from "@/components/sections/CTASection";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
         <CTASection />
       </main>
       <Footer />
+      <Analytics />
     </>
   );
 }
