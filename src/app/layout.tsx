@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "https://leadslemonade.com",
     images: [
       {
-        url: "/thumbnail.png",
+        url: "https://leadslemonade.com/thumbnail.png",
         width: 1200,
         height: 630,
         alt: "LeadsLemonade - Search for anyone easily",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "LeadsLemonade | Leads Generation Platform",
     description:
       "Find anyone using natural language, verify emails in real-time, and start for as low as $5.",
-    images: ["/thumbnail.png"],
+    images: ["https://leadslemonade.com/thumbnail.png"],
   },
 };
 
