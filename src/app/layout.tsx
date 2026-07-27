@@ -35,18 +35,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} data-theme="aurora">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        />
-      </head>
-      <body className="min-h-full antialiased overflow-x-hidden">
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      data-theme="aurora"
+    >
+      <body style={{ fontFamily: "var(--font-body)" }}>
         {children}
       </body>
     </html>

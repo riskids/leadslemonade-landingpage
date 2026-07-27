@@ -4,14 +4,35 @@ const FeaturesSection = () => {
   return (
     <section id="features" className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Asymmetric bento grid: 3 cols, 2 rows */}
+        {/* Section label — hanging heading, Aurora style */}
+        <div className="mb-12">
+          <span
+            className="text-xs font-mono mb-2 block"
+            style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}
+          >
+            02 / Features
+          </span>
+          <h2
+            className="font-bold tracking-tighter"
+            style={{
+              fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+              letterSpacing: 'var(--tracking-display)',
+              color: 'var(--color-ink)',
+            }}
+          >
+            AI-Powered Lead Discovery
+          </h2>
+        </div>
+
+        {/* Asymmetric bento grid — breaks the 3-card icon-tile anti-pattern */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr">
           {/* Large card — 2 cols, 2 rows */}
           <div
-            className="md:col-span-2 md:row-span-2 p-8 rounded-xl border flex flex-col justify-between min-h-[280px] transition-colors"
+            className="md:col-span-2 md:row-span-2 p-8 border flex flex-col justify-between min-h-[280px] transition-colors"
             style={{
               background: 'var(--color-paper-2)',
               borderColor: 'var(--color-rule)',
+              borderRadius: 'var(--radius-card)',
               boxShadow: 'var(--shadow-card)',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-paper-3)')}
@@ -37,7 +58,6 @@ const FeaturesSection = () => {
                 Our LLM-powered scrapers understand intent, not just keywords. Find CEOs who like hiking or developers using Go.
               </p>
             </div>
-            {/* Decorative search chip */}
             <div className="mt-6 flex flex-wrap gap-2">
               {['LLM-powered', 'Intent-based', 'Natural language', '30+ data points'].map((tag) => (
                 <span
@@ -46,6 +66,7 @@ const FeaturesSection = () => {
                   style={{
                     borderColor: 'var(--color-rule)',
                     color: 'var(--color-ink-2)',
+                    fontFamily: 'var(--font-label)',
                   }}
                 >
                   {tag}
@@ -54,12 +75,13 @@ const FeaturesSection = () => {
             </div>
           </div>
 
-          {/* Medium card — 1 col, 2 rows (tall) */}
+          {/* Tall card — 1 col, 2 rows */}
           <div
-            className="md:row-span-2 p-8 rounded-xl border flex flex-col justify-between min-h-[280px] transition-colors"
+            className="md:row-span-2 p-8 border flex flex-col justify-between min-h-[280px] transition-colors"
             style={{
               background: 'var(--color-paper-2)',
               borderColor: 'var(--color-rule)',
+              borderRadius: 'var(--radius-card)',
               boxShadow: 'var(--shadow-card)',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-paper-3)')}
@@ -85,7 +107,6 @@ const FeaturesSection = () => {
                 Pay for what you squeeze. No heavy lock-ins. From micro-top-ups to enterprise volumes, we scale with you.
               </p>
             </div>
-            {/* Pricing visual */}
             <div className="mt-6 space-y-2">
               <div className="flex items-baseline gap-2">
                 <span
@@ -104,27 +125,25 @@ const FeaturesSection = () => {
               >
                 <div
                   className="h-full rounded-full"
-                  style={{
-                    background: 'var(--color-accent)',
-                    width: '65%',
-                  }}
+                  style={{ background: 'var(--color-accent)', width: '65%' }}
                 />
               </div>
               <div
                 className="text-xs font-mono"
-                style={{ color: 'var(--color-muted)' }}
+                style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}
               >
                 No lock-in. Scale as you go.
               </div>
             </div>
           </div>
 
-          {/* Wide card — 3 cols, 1 row (spans full width) */}
+          {/* Wide card — 3 cols, 1 row */}
           <div
-            className="md:col-span-3 p-8 rounded-xl border flex flex-col md:flex-row md:items-center md:justify-between gap-4 transition-colors"
+            className="md:col-span-3 p-8 border flex flex-col md:flex-row md:items-center md:justify-between gap-4 transition-colors"
             style={{
               background: 'var(--color-paper-2)',
               borderColor: 'var(--color-rule)',
+              borderRadius: 'var(--radius-card)',
               boxShadow: 'var(--shadow-card)',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-paper-3)')}
@@ -150,7 +169,6 @@ const FeaturesSection = () => {
                 Zero stale databases. Every search triggers a live scrape to ensure contact info is accurate as of this minute.
               </p>
             </div>
-            {/* Live pulse indicator */}
             <div className="flex items-center gap-3 shrink-0">
               <span
                 className="relative inline-flex w-3 h-3 rounded-full"
@@ -163,7 +181,7 @@ const FeaturesSection = () => {
               </span>
               <span
                 className="text-sm font-mono"
-                style={{ color: 'var(--color-ink-2)' }}
+                style={{ color: 'var(--color-ink-2)', fontFamily: 'var(--font-label)' }}
               >
                 Live · Real-time scrape
               </span>

@@ -12,11 +12,10 @@ const placeholders = [
 
 const words = ['founder', 'owner', 'talent', 'anyone'];
 
-// Fake search results for counterweight demo
 const demoResults = [
-  { name: "Sarah Chen", role: "CTO @ FinTech.id", meta: " Verified", email: "sarah@fintech.id" },
-  { name: "Budi Hartono", role: "CEO @ StartupHub", meta: " Verified", email: "budi@startuphub.co" },
-  { name: "Maya Putri", role: "Marketing Dir @ SaaS Co", meta: " Verified", email: "maya@saas.co" },
+  { name: "Sarah Chen", role: "CTO @ FinTech.id", email: "sarah@fintech.id", points: 34 },
+  { name: "Budi Hartono", role: "CEO @ StartupHub", email: "budi@startuphub.co", points: 32 },
+  { name: "Maya Putri", role: "Marketing Dir @ SaaS Co", email: "maya@saas.co", points: 31 },
 ];
 
 export default function HeroSection() {
@@ -44,7 +43,6 @@ export default function HeroSection() {
     return () => clearInterval(i);
   }, []);
 
-  // Animate demo results cycling in
   useEffect(() => {
     const i = setInterval(() => {
       setVisibleResults(prev => (prev + 1) % (demoResults.length + 1));
@@ -57,7 +55,7 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Static radial blooms */}
+      {/* Static radial blooms (Aurora genre rule: max 2, no animation) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -70,11 +68,16 @@ export default function HeroSection() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Headline + sub + search */}
+          {/* Left: H7 Marquee Hero — left-biased headline */}
           <div className="text-left">
             <h1
-              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4"
-              style={{ fontFeatureSettings: "'tnum' on, 'lnum' on", lineHeight: 1.05 }}
+              className="font-bold tracking-tighter mb-4"
+              style={{
+                fontSize: "var(--text-display)",
+                letterSpacing: "var(--tracking-display)",
+                lineHeight: 1.05,
+                fontFamily: "var(--font-display)",
+              }}
             >
               Search for{' '}
               <span className="inline-block overflow-hidden h-[1.1em] align-bottom">
@@ -98,18 +101,20 @@ export default function HeroSection() {
               <input
                 type="text"
                 placeholder={placeholder}
-                className="w-full px-6 py-4 rounded-full border focus:outline-none focus:ring-2 transition-colors"
+                className="w-full px-6 py-4 border focus:outline-none focus:ring-2 transition-colors"
                 style={{
                   background: 'var(--color-paper-2)',
                   borderColor: 'var(--color-rule)',
+                  borderRadius: 'var(--radius-input)',
                   '--tw-ring-color': 'var(--color-accent)',
                 } as React.CSSProperties}
               />
               <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 rounded-full font-medium"
+                className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 font-medium"
                 style={{
                   background: 'var(--color-accent)',
                   color: 'var(--color-accent-ink)',
+                  borderRadius: 'var(--radius-pill)',
                 }}
               >
                 Search
@@ -117,20 +122,24 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Counterweight — Live search demo card */}
+          {/* Right: Counterweight — live search demo panel */}
           <div className="hidden lg:block">
             <div
               className="rounded-xl p-6 border"
               style={{
                 background: 'var(--color-paper-2)',
                 borderColor: 'var(--color-rule)',
+                borderRadius: 'var(--radius-card)',
                 boxShadow: 'var(--shadow-card)',
               }}
             >
-              {/* Demo header */}
               <div
-                className="flex items-center gap-2 mb-4 text-xs font-mono pb-3 border-b"
-                style={{ borderColor: 'var(--color-rule)', color: 'var(--color-muted)' }}
+                className="flex items-center gap-2 mb-4 pb-3 border-b text-xs"
+                style={{
+                  borderColor: 'var(--color-rule)',
+                  color: 'var(--color-muted)',
+                  fontFamily: 'var(--font-label)',
+                }}
               >
                 <span
                   className="inline-block w-2 h-2 rounded-full"
@@ -139,10 +148,9 @@ export default function HeroSection() {
                 live-search.ai
               </div>
 
-              {/* Search query line */}
               <div
-                className="text-sm mb-4 font-mono"
-                style={{ color: 'var(--color-ink-2)' }}
+                className="text-sm mb-4"
+                style={{ color: 'var(--color-ink-2)', fontFamily: 'var(--font-label)' }}
               >
                 <span style={{ color: 'var(--color-muted)' }}>$</span> search:{" "}
                 <span style={{ color: 'var(--color-accent)' }}>
@@ -150,7 +158,6 @@ export default function HeroSection() {
                 </span>
               </div>
 
-              {/* Results */}
               <div className="space-y-3">
                 {demoResults.slice(0, visibleResults).map((r, idx) => (
                   <div
@@ -159,20 +166,15 @@ export default function HeroSection() {
                     style={{
                       background: 'var(--color-paper-3)',
                       borderColor: 'var(--color-rule)',
+                      borderRadius: 'var(--radius-card)',
                     }}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <div
-                          className="font-medium text-sm"
-                          style={{ color: 'var(--color-ink)' }}
-                        >
+                        <div className="font-medium text-sm" style={{ color: 'var(--color-ink)' }}>
                           {r.name}
                         </div>
-                        <div
-                          className="text-xs"
-                          style={{ color: 'var(--color-muted)' }}
-                        >
+                        <div className="text-xs" style={{ color: 'var(--color-muted)' }}>
                           {r.role}
                         </div>
                       </div>
@@ -183,30 +185,24 @@ export default function HeroSection() {
                           color: 'var(--color-accent-2)',
                         }}
                       >
-                        {r.meta}
+                        Verified
                       </span>
                     </div>
-                    <div
-                      className="text-xs mt-1 font-mono"
-                      style={{ color: 'var(--color-ink-2)' }}
-                    >
+                    <div className="text-xs mt-1" style={{ color: 'var(--color-ink-2)', fontFamily: 'var(--font-label)' }}>
                       {r.email}
+                    </div>
+                    <div className="text-xs mt-1" style={{ color: 'var(--color-muted)' }}>
+                      {r.points} data points enriched
                     </div>
                   </div>
                 ))}
                 {visibleResults < demoResults.length && (
-                  <div
-                    className="text-xs font-mono animate-pulse"
-                    style={{ color: 'var(--color-muted)' }}
-                  >
+                  <div className="text-xs animate-pulse" style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}>
                     searching...
                   </div>
                 )}
                 {visibleResults >= demoResults.length && (
-                  <div
-                    className="text-xs font-mono pt-1"
-                    style={{ color: 'var(--color-accent-2)' }}
-                  >
+                  <div className="text-xs pt-1" style={{ color: 'var(--color-accent-2)', fontFamily: 'var(--font-label)' }}>
                     3 verified results · 30+ data points enriched
                   </div>
                 )}
