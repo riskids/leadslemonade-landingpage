@@ -12,16 +12,9 @@ const placeholders = [
 
 const words = ['founder', 'owner', 'talent', 'anyone'];
 
-const demoResults = [
-  { name: "Sarah Chen", role: "CTO @ FinTech.id", email: "sarah@fintech.id", points: 34 },
-  { name: "Budi Hartono", role: "CEO @ StartupHub", email: "budi@startuphub.co", points: 32 },
-  { name: "Maya Putri", role: "Marketing Dir @ SaaS Co", email: "maya@saas.co", points: 31 },
-];
-
 export default function HeroSection() {
   const [placeholder, setPlaceholder] = useState(placeholders[0]);
   const [word, setWord] = useState('founder');
-  const [visibleResults, setVisibleResults] = useState(0);
 
   useEffect(() => {
     const i = setInterval(() => {
@@ -43,13 +36,6 @@ export default function HeroSection() {
     return () => clearInterval(i);
   }, []);
 
-  useEffect(() => {
-    const i = setInterval(() => {
-      setVisibleResults(prev => (prev + 1) % (demoResults.length + 1));
-    }, 2200);
-    return () => clearInterval(i);
-  }, []);
-
   return (
     <section
       id="hero"
@@ -68,7 +54,7 @@ export default function HeroSection() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: H7 Marquee Hero — left-biased headline */}
+          {/* Left: Headline + subtext only */}
           <div className="text-left">
             <h1
               className="font-bold tracking-tighter mb-4"
@@ -92,12 +78,16 @@ export default function HeroSection() {
               {' '}easily.
             </h1>
             <p
-              className="text-lg md:text-xl mb-8 max-w-lg"
+              className="text-lg md:text-xl max-w-lg"
               style={{ color: 'var(--color-muted)' }}
             >
               Find anyone using natural language, verify emails in real-time, and start for as low as $5.
             </p>
-            <div className="relative max-w-lg">
+          </div>
+
+          {/* Right: Search form only */}
+          <div className="flex lg:justify-end justify-center w-full">
+            <div className="relative max-w-lg w-full">
               <input
                 type="text"
                 placeholder={placeholder}
@@ -119,94 +109,6 @@ export default function HeroSection() {
               >
                 Search
               </button>
-            </div>
-          </div>
-
-          {/* Right: Counterweight — live search demo panel */}
-          <div className="hidden lg:block">
-            <div
-              className="rounded-xl p-6 border"
-              style={{
-                background: 'var(--color-paper-2)',
-                borderColor: 'var(--color-rule)',
-                borderRadius: 'var(--radius-card)',
-                boxShadow: 'var(--shadow-card)',
-              }}
-            >
-              <div
-                className="flex items-center gap-2 mb-4 pb-3 border-b text-xs"
-                style={{
-                  borderColor: 'var(--color-rule)',
-                  color: 'var(--color-muted)',
-                  fontFamily: 'var(--font-label)',
-                }}
-              >
-                <span
-                  className="inline-block w-2 h-2 rounded-full"
-                  style={{ background: 'var(--color-accent-2)' }}
-                />
-                live-search.ai
-              </div>
-
-              <div
-                className="text-sm mb-4"
-                style={{ color: 'var(--color-ink-2)', fontFamily: 'var(--font-label)' }}
-              >
-                <span style={{ color: 'var(--color-muted)' }}>$</span> search:{" "}
-                <span style={{ color: 'var(--color-accent)' }}>
-                  &ldquo;CTOs at fintech in Jakarta&rdquo;
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                {demoResults.slice(0, visibleResults).map((r, idx) => (
-                  <div
-                    key={idx}
-                    className="fade-up-animation rounded-lg p-3 border"
-                    style={{
-                      background: 'var(--color-paper-3)',
-                      borderColor: 'var(--color-rule)',
-                      borderRadius: 'var(--radius-card)',
-                    }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-sm" style={{ color: 'var(--color-ink)' }}>
-                          {r.name}
-                        </div>
-                        <div className="text-xs" style={{ color: 'var(--color-muted)' }}>
-                          {r.role}
-                        </div>
-                      </div>
-                      <span
-                        className="text-xs font-mono px-2 py-0.5 rounded-full"
-                        style={{
-                          background: 'color-mix(in oklch, var(--color-accent-2) 15%, transparent)',
-                          color: 'var(--color-accent-2)',
-                        }}
-                      >
-                        Verified
-                      </span>
-                    </div>
-                    <div className="text-xs mt-1" style={{ color: 'var(--color-ink-2)', fontFamily: 'var(--font-label)' }}>
-                      {r.email}
-                    </div>
-                    <div className="text-xs mt-1" style={{ color: 'var(--color-muted)' }}>
-                      {r.points} data points enriched
-                    </div>
-                  </div>
-                ))}
-                {visibleResults < demoResults.length && (
-                  <div className="text-xs animate-pulse" style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}>
-                    searching...
-                  </div>
-                )}
-                {visibleResults >= demoResults.length && (
-                  <div className="text-xs pt-1" style={{ color: 'var(--color-accent-2)', fontFamily: 'var(--font-label)' }}>
-                    3 verified results · 30+ data points enriched
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         </div>

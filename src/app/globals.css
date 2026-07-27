@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
 @import "tailwindcss";
 
 /* Tailwind v4 @theme — generates utilities: bg-paper, text-muted, border-rule, etc. */
@@ -73,6 +74,24 @@ body {
   background: var(--color-rule-2);
 }
 
+/* Material Symbols Outlined */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
 /* Keyframes */
 @keyframes word-slide-in {
   from { transform: translateY(100%); }
@@ -111,11 +130,61 @@ body {
   box-shadow: 0 8px 24px -12px oklch(0% 0 0 / 0.18);
 }
 
+/* Scroll-Driven Animations */
+.aurora-sticky-container {
+  height: auto;
+  view-timeline-name: --scroll-sequence;
+}
+
+.aurora-sticky-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  padding: 4rem 0;
+}
+
+@media (min-width: 1024px) {
+  .aurora-sticky-container { height: 225vh; }
+  .aurora-sticky-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0;
+  }
+}
+
+.scroll-blur-target {
+  animation: blur-sequence linear both;
+  animation-timeline: --scroll-sequence;
+  animation-range: exit-crossing 35% exit-crossing 45%;
+}
+
+.scroll-reveal-target {
+  animation: reveal-sequence linear both;
+  animation-timeline: --scroll-sequence;
+  animation-range: exit-crossing 35% exit-crossing 45%;
+}
+
+@keyframes blur-sequence {
+  0%   { filter: blur(0px);  opacity: 1;   transform: scale(1); }
+  100% { filter: blur(25px); opacity: 0.1; transform: scale(0.9); }
+}
+
+@keyframes reveal-sequence {
+  0%   { opacity: 0; transform: translateY(100px) scale(0.8) rotateX(15deg); visibility: hidden; }
+  1%   { opacity: 0; visibility: visible; }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .word-slide-in-animation,
   .blur-in-animation,
   .fade-up-animation,
-  .sticky-blur-reveal {
+  .sticky-blur-reveal,
+  .scroll-blur-target,
+  .scroll-reveal-target {
     animation: none;
   }
 }
