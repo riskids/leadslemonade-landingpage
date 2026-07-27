@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Multi-agent system artifacts
+reports/
+*.secret
+*.key
+id_rsa*
+*.pem

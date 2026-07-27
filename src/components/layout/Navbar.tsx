@@ -1,28 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 
-const NAV_LINKS = [
-  { label: "Live Preview", href: "/#live-preview", sectionId: "live-preview" },
-  { label: "Features", href: "/#features", sectionId: "features" },
-  { label: "Calculator", href: "/#calculator", sectionId: "calculator" },
-  { label: "Pricing", href: "/#pricing", sectionId: "pricing" },
-];
-
-export default function Navbar() {
-  const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState<string>("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setActiveSection("");
-      return;
-    }
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -31,127 +17,88 @@ export default function Navbar() {
           }
         });
       },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      { threshold: 0.5 }
     );
 
-    NAV_LINKS.forEach(({ sectionId }) => {
-      const el = document.getElementById(sectionId);
-      if (el) observer.observe(el);
+    document.querySelectorAll("section").forEach((section) => {
+      observer.observe(section);
     });
 
     return () => observer.disconnect();
-  }, [pathname]);
+  }, []);
 
-  function isActive(link: (typeof NAV_LINKS)[0]) {
-    if (pathname === "/" && link.sectionId) {
-      return activeSection === link.sectionId;
-    }
-    return false;
-  }
+  const navItems = [
+    { id: "hero", label: "Home" },
+    { id: "features", label: "Features" },
+    { id: "pricing", label: "Pricing" },
+  ];
 
   return (
-    <nav
-      className="fixed top-0 w-full z-50 backdrop-blur-xl flex justify-between items-center px-8 h-20"
-      style={{ background: "rgba(7, 26, 31, 0.7)", boxShadow: "0 20px 40px rgba(0,175,185,0.08)" }}
-    >
-      {/* Logo */}
-      <Link href="/" className="flex items-center">
-        <Image
-          src="/logo.png"
-          alt="LeadsLemonade Logo"
-          width={160}
-          height={40}
-          className="h-10 w-auto object-contain"
-          priority
-        />
-      </Link>
-
-      {/* Desktop Nav Links */}
-      <div className="hidden md:flex items-center gap-8 text-sm font-medium tracking-tight">
-        {NAV_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={
-              isActive(link)
-                ? "text-cyan-400 border-b-2 border-cyan-400 pb-1 transition-all duration-200"
-                : "text-slate-400 hover:text-cyan-200 transition-colors duration-200"
-            }
-          >
-            {link.label}
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+      <div className="mx-auto max-w-lg backdrop-blur-lg bg-white/50 dark:bg-black/50 border border-white/20 dark:border-black/20 rounded-full px-4 py-2">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2">
+            <Image src="/logo.png" alt="LeadsLemonade Logo" width={32} height={32} />
           </Link>
-        ))}
-      </div>
 
-      {/* Desktop CTA Buttons */}
-      <div className="hidden md:flex items-center gap-4">
-        <Link
-          href="/maintenance"
-          id="nav-login-btn"
-          className="text-slate-400 hover:text-cyan-200 text-sm font-medium px-4 py-2 hover:bg-cyan-400/10 transition-all duration-300 rounded-lg active:scale-90"
-        >
-          Login
-        </Link>
-        <Link
-          href="/maintenance"
-          id="nav-get-started-btn"
-          className="bg-cyan-400 text-cyan-950 px-6 py-2.5 rounded-lg text-sm font-bold shadow-lg shadow-cyan-400/20 active:scale-95 transition-all"
-        >
-          Get Started
-        </Link>
-      </div>
-
-      {/* Mobile Menu Button */}
-      <button
-        className="md:hidden text-slate-400 p-2"
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        aria-label="Toggle menu"
-      >
-        <span className="material-symbols-outlined text-3xl">
-          {isMobileMenuOpen ? "close" : "menu"}
-        </span>
-      </button>
-
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div
-          className="absolute top-20 left-0 w-full p-6 flex flex-col gap-6 md:hidden shadow-2xl border-t border-white/5"
-          style={{ background: "rgba(7, 26, 31, 0.98)", backdropFilter: "blur(20px)" }}
-        >
-          <div className="flex flex-col gap-4 text-center">
-            {NAV_LINKS.map((link) => (
+          <nav className="hidden md:flex space-x-2">
+            {navItems.map((item) => (
               <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={
-                  isActive(link)
-                    ? "text-cyan-400 text-lg font-bold"
-                    : "text-slate-300 hover:text-cyan-200 text-lg font-medium"
-                }
+                key={item.id}
+                href={`#${item.id}`}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                  activeSection === item.id
+                    ? "bg-accent text-accent-ink"
+                    : "text-ink-2 hover:text-ink"
+                }`}
               >
-                {link.label}
+                {item.label}
               </Link>
             ))}
-          </div>
-          <div className="flex flex-col gap-3 pt-4 border-t border-white/10">
-            <Link
-              href="/maintenance"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-cyan-200 text-center text-lg font-medium py-3 rounded-xl border border-white/10"
-            >
-              Login
-            </Link>
-            <Link
-              href="/maintenance"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="bg-cyan-400 text-cyan-950 text-center py-3 rounded-xl text-lg font-bold shadow-lg shadow-cyan-400/20"
-            >
+          </nav>
+
+          <div className="hidden md:block">
+            <Link href="/contact" className="px-4 py-2 text-sm font-medium rounded-full bg-accent text-accent-ink hover:opacity-90 transition-opacity">
               Get Started
             </Link>
           </div>
+
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-full text-ink-2 hover:text-ink focus:outline-none focus:ring-2 focus:ring-accent"
+            >
+              <span className="material-symbols-outlined">menu</span>
+            </button>
+          </div>
         </div>
-      )}
-    </nav>
+
+        {isOpen && (
+          <div className="md:hidden mt-4">
+            <nav className="flex flex-col space-y-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={() => setIsOpen(false)}
+                  className={`px-4 py-2 rounded-full text-center font-medium transition-colors ${
+                    activeSection === item.id
+                      ? "bg-accent text-accent-ink"
+                      : "text-ink-2 hover:text-ink"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link href="/contact" className="px-4 py-2 text-center font-medium rounded-full bg-accent text-accent-ink hover:opacity-90 transition-opacity">
+                Get Started
+              </Link>
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
   );
-}
+};
+
+export default Navbar;
