@@ -55,7 +55,7 @@ const Navbar = () => {
       >
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
-          <Image src="/logo.png" alt="LeadsLemonade Logo" width={28} height={28} />
+          <Image src="/logo.png" alt="LeadsLemonade Logo" width={140} height={26} />
         </Link>
 
         {/* Desktop nav links */}

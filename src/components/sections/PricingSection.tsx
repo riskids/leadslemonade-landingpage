@@ -3,6 +3,7 @@ const PricingSection = () => {
     {
       name: "Free Sample",
       price: "$0",
+      description: "Testing the waters",
       features: ["10 Lead Credits/mo", "Basic Enriching"],
       cta: "Start Free",
       bg: 'var(--color-paper-2)',
@@ -11,6 +12,7 @@ const PricingSection = () => {
     {
       name: "Micro Squeeze",
       price: "$5",
+      description: "Top-up when needed",
       features: ["100 Lead Credits", "One-time purchase", "Premium verification", "No hidden fee"],
       cta: "Squeeze Now",
       bg: 'var(--color-paper-3)',
@@ -19,6 +21,7 @@ const PricingSection = () => {
     {
       name: "Fresh Monthly",
       price: "$29.90/mo",
+      description: "Growing startups",
       features: ["1,000 Credits/mo", "Pay less for information detail", "Premium verification", "No hidden fee", "Scale with $4 per 100 credit top-ups"],
       cta: "Select Plan",
       bg: 'var(--color-paper-2)',
@@ -41,6 +44,7 @@ const PricingSection = () => {
             fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             letterSpacing: 'var(--tracking-display)',
             color: 'var(--color-ink)',
+            fontFamily: 'var(--font-display)',
           }}
         >
           Transparent Pricing
@@ -66,7 +70,7 @@ const PricingSection = () => {
                   <span
                     className="px-3 py-1 text-sm font-bold rounded-full"
                     style={{
-                      background: 'var(--color-accent-2)',
+                      background: 'var(--color-accent)',
                       color: 'var(--color-accent-ink)',
                       borderRadius: 'var(--radius-pill)',
                     }}
@@ -77,15 +81,21 @@ const PricingSection = () => {
               )}
               <h3
                 className="text-2xl font-bold mb-2"
-                style={{ color: 'var(--color-ink)' }}
+                style={{ color: 'var(--color-ink)', fontFamily: 'var(--font-display)' }}
               >
                 {tier.name}
               </h3>
               <p
-                className="text-4xl font-bold mb-4"
-                style={{ color: 'var(--color-ink)' }}
+                className="text-4xl font-bold mb-1"
+                style={{ color: 'var(--color-ink)', fontFamily: 'var(--font-display)' }}
               >
                 {tier.price}
+              </p>
+              <p
+                className="mb-4"
+                style={{ color: 'var(--color-muted)', fontSize: '0.875rem' }}
+              >
+                {tier.description}
               </p>
               <ul className="space-y-2 mb-8 text-left">
                 {tier.features.map((f) => (

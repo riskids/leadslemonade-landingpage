@@ -5,6 +5,7 @@ import LiveDeepSearchSection from "@/components/sections/LiveDeepSearchSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
 import CalculatorSection from "@/components/sections/CalculatorSection";
 import PricingSection from "@/components/sections/PricingSection";
+import CTASection from "@/components/sections/CTASection";
 import { Analytics } from "@vercel/analytics/next"
 
 export default function HomePage() {
@@ -17,8 +18,8 @@ export default function HomePage() {
         <FeaturesSection />
         <CalculatorSection />
         <PricingSection />
+        <CTASection />
       </main>
-      {/* Ft5 Statement Footer — CTA statement IS the footer */}
       <Footer />
       <Analytics />
     </>
