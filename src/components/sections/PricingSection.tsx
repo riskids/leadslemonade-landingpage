@@ -119,7 +119,7 @@ const PricingSection = () => {
                     padding: '4px 12px',
                   }}
                 >
-                  Most teams pick this
+                  Recomended
                 </span>
               )}
 
