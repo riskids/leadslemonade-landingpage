@@ -93,6 +93,7 @@ const PricingSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
+                textAlign: 'left',
                 position: 'relative',
                 ...(tier.popular
                   ? {
