@@ -3,6 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
+// Material Symbols Outlined — must be loaded via <link> for ligatures to work
+const materialSymbols = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://leadslemonade.com"),
   title: "LeadsLemonade | Leads Generation Platform",
@@ -42,6 +45,9 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable}`}
       data-theme="aurora"
     >
+      <head>
+        <link rel="stylesheet" href={materialSymbols} />
+      </head>
       <body style={{ fontFamily: "var(--font-body)" }}>
         {children}
       </body>
