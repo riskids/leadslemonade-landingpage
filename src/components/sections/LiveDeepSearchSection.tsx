@@ -549,6 +549,43 @@ function DetailedProfileCard() {
   );
 }
 
+/* ─── Feature icons: stroke-only, 20×20 viewBox, currentColor, no fill ─── */
+const featureIcons = {
+  verified: (
+    <svg
+      viewBox="0 0 20 20"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="10" cy="10" r="7.25" />
+      <path d="m6.5 10.25 2.5 2.5 4.75-5.25" />
+    </svg>
+  ),
+  coin: (
+    <svg
+      viewBox="0 0 20 20"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="10" cy="10" r="7.25" />
+      <path d="M10 5v10" />
+      <path d="M12.4 7.1c-.4-.8-1.3-1.3-2.4-1.3-1.3 0-2.4.8-2.4 1.9 0 2.6 4.8 1.3 4.8 4 0 1.1-1.1 1.9-2.4 1.9-1.1 0-2-.5-2.4-1.3" />
+    </svg>
+  ),
+} as const;
+
 /* ─── Feature Bullet (left column highlights) ─── */
 function FeatureBullet({
   icon,
@@ -556,24 +593,26 @@ function FeatureBullet({
   desc,
   accent,
 }: {
-  icon: string;
+  icon: keyof typeof featureIcons;
   title: string;
   desc: string;
   accent: string;
 }) {
   return (
     <div
-      className="flex items-center gap-4 p-4 rounded-xl"
+      className="flex items-center gap-4 p-4 rounded-xl bg-[var(--color-paper-2)] hover:bg-[var(--color-paper-3)] transition-colors"
       style={{
-        background: "var(--color-paper-2)",
-        borderLeft: `4px solid ${accent}`,
+        border: "1px solid color-mix(in oklch, var(--color-ink) 5%, transparent)",
       }}
     >
       <span
-        className="material-symbols-outlined"
-        style={{ color: accent }}
+        className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
+        style={{
+          color: accent,
+          background: `color-mix(in oklch, ${accent} 12%, transparent)`,
+        }}
       >
-        {icon}
+        {featureIcons[icon]}
       </span>
       <div>
         <p
@@ -625,7 +664,7 @@ export default function LiveDeepSearchSection() {
                 desc="Multi-layer SMTP verification"
               />
               <FeatureBullet
-                icon="attach_money"
+                icon="coin"
                 accent="var(--color-accent-2)"
                 title="Pay what you get"
                 desc="No hidden fees. Pay only for the leads you actually pick."
