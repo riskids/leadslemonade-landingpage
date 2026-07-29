@@ -3,8 +3,13 @@ const PricingSection = () => {
     {
       name: "Free Sample",
       price: "$0",
-      description: "Explore the platform with a preview of what's possible.",
-      features: ["10 lead credits / month", "Email + role enrichment"],
+      unit: "",
+      description: "Up to 10 leads / month. For testing the waters.",
+      features: [
+        "10 lead credits / month",
+        "Email + role enrichment",
+        "Community support",
+      ],
       cta: "Get Started",
       bg: 'var(--color-paper-2)',
       popular: false,
@@ -12,17 +17,30 @@ const PricingSection = () => {
     {
       name: "Micro Squeeze",
       price: "$5",
-      description: "One-time credit pack, no commitment.",
-      features: ["100 lead credits", "One-time purchase, no renewal", "Premium SMTP verification", "Pay only for verified leads"],
+      unit: "",
+      description: "One-time credit pack. No subscription, no expiry.",
+      features: [
+        "100 lead credits — one-time",
+        "Premium SMTP verification",
+        "Pay only for verified leads",
+        "No hidden fees",
+      ],
       cta: "Buy Credits",
       bg: 'var(--color-paper-3)',
       popular: true,
     },
     {
       name: "Fresh Monthly",
-      price: "$29.90/mo",
-      description: "For teams scaling outbound.",
-      features: ["1,000 lead credits / month", "Volume discount on enrichment", "Premium SMTP verification", "Pay only for verified leads", "Top-ups at $4 per 100 credits"],
+      price: "$29.90",
+      unit: "/ mo",
+      description: "For teams scaling outbound. No credit ceiling.",
+      features: [
+        "1,000 lead credits / month",
+        "Volume discount on enrichment",
+        "Premium SMTP verification",
+        "Top-ups at $4 per 100 credits",
+        "Priority support",
+      ],
       cta: "Get Started",
       bg: 'var(--color-paper-2)',
       popular: false,
@@ -50,7 +68,7 @@ const PricingSection = () => {
           Transparent Pricing
         </h2>
         <p className="text-lg mb-8" style={{ color: 'var(--color-muted)' }}>
-          Simple tiers for every stage of growth.
+          Plans that scale with you, not against you.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -75,7 +93,7 @@ const PricingSection = () => {
                       borderRadius: 'var(--radius-pill)',
                     }}
                   >
-                    Most Popular
+                    Most teams pick this
                   </span>
                 </div>
               )}
@@ -85,12 +103,22 @@ const PricingSection = () => {
               >
                 {tier.name}
               </h3>
-              <p
-                className="text-4xl font-bold mb-1"
-                style={{ color: 'var(--color-ink)', fontFamily: 'var(--font-display)' }}
-              >
-                {tier.price}
-              </p>
+              <div className="flex items-baseline gap-1 mb-1">
+                <p
+                  className="text-4xl font-bold"
+                  style={{ color: 'var(--color-ink)', fontFamily: 'var(--font-display)' }}
+                >
+                  {tier.price}
+                </p>
+                {tier.unit && (
+                  <span
+                    className="text-sm"
+                    style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}
+                  >
+                    {tier.unit}
+                  </span>
+                )}
+              </div>
               <p
                 className="mb-4"
                 style={{ color: 'var(--color-muted)', fontSize: '0.875rem' }}
