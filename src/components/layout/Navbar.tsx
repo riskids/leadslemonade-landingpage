@@ -82,7 +82,7 @@ const Navbar = () => {
         {/* CTA */}
         <div className="hidden md:block shrink-0">
           <Link
-            href="/contact"
+            href="/maintenance"
             className="px-4 py-1.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
             style={{
               background: "var(--color-accent)",

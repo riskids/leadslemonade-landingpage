@@ -95,7 +95,8 @@ export default function HeroSection() {
                   '--tw-ring-color': 'var(--color-accent)',
                 } as React.CSSProperties}
               />
-              <button
+              <a
+                href="/maintenance"
                 className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 font-medium"
                 style={{
                   background: 'var(--color-accent)',
@@ -104,7 +105,7 @@ export default function HeroSection() {
                 }}
               >
                 Search
-              </button>
+              </a>
             </div>
           </div>
         </div>
