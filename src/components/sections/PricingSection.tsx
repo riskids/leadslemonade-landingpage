@@ -50,45 +50,35 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" style={{ padding: '4rem 1rem 3rem' }}>
-      <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
-        {/* Head — centered */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-label)',
-              fontSize: '0.75rem',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: 'var(--color-muted)',
-              display: 'block',
-              marginBottom: '0.5rem',
-            }}
-          >
-            ◇ pricing
-          </span>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.75rem, 3vw, 1.875rem)',
-              fontWeight: 600,
-              letterSpacing: '-0.025em',
-              lineHeight: 1.05,
-              color: 'var(--color-ink)',
-              maxWidth: '36ch',
-              margin: '0 auto 0.5rem',
-            }}
-          >
-            Plans that scale with you, not against you.
-          </h2>
-        </div>
+    <section id="pricing" className="py-20 px-4">
+      <div className="max-w-6xl mx-auto text-center">
+        <span
+          className="text-xs font-mono mb-2 block"
+          style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}
+        >
+          04 / Pricing
+        </span>
+        <h2
+          className="font-bold tracking-tighter mb-4"
+          style={{
+            fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+            letterSpacing: 'var(--tracking-display)',
+            color: 'var(--color-ink)',
+            fontFamily: 'var(--font-display)',
+          }}
+        >
+          Transparent Pricing
+        </h2>
+        <p className="text-lg mb-8" style={{ color: 'var(--color-muted)' }}>
+          Plans that scale with you, not against you.
+        </p>
 
         {/* Grid */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1rem',
+            gap: '2rem',
             marginTop: '2rem',
           }}
         >
