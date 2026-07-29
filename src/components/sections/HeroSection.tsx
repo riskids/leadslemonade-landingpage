@@ -3,11 +3,7 @@
 import { useState, useEffect } from 'react';
 
 const placeholders = [
-  "Software engineers in Jakarta...",
-  "CEO of startups in Singapore...",
-  "Marketing directors at SaaS...",
-  "Freelance designers in Bandung...",
-  "CTOs at fintech...",
+  "Try CEO of startups in Singapore..."
 ];
 
 const words = ['founder', 'owner', 'talent', 'anyone'];
@@ -75,7 +71,7 @@ export default function HeroSection() {
                   {word}
                 </span>
               </span>
-              {' '}easily.
+              {' '}<br></br>easily.
             </h1>
             <p
               className="text-lg md:text-xl max-w-lg"
