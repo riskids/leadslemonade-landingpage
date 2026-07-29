@@ -1,3 +1,5 @@
+"use client";
+
 const PricingSection = () => {
   const tiers = [
     {
@@ -48,106 +50,210 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 px-4">
-      <div className="max-w-6xl mx-auto text-center">
-        <span
-          className="text-xs font-mono mb-2 block"
-          style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}
-        >
-          04 / Pricing
-        </span>
-        <h2
-          className="font-bold tracking-tighter mb-4"
+    <section id="pricing" style={{ padding: '4rem 1rem 3rem' }}>
+      <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
+        {/* Head — centered */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-label)',
+              fontSize: '0.75rem',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--color-muted)',
+              display: 'block',
+              marginBottom: '0.5rem',
+            }}
+          >
+            ◇ pricing
+          </span>
+          <h2
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(1.75rem, 3vw, 1.875rem)',
+              fontWeight: 600,
+              letterSpacing: '-0.025em',
+              lineHeight: 1.05,
+              color: 'var(--color-ink)',
+              maxWidth: '36ch',
+              margin: '0 auto 0.5rem',
+            }}
+          >
+            Plans that scale with you, not against you.
+          </h2>
+        </div>
+
+        {/* Grid */}
+        <div
           style={{
-            fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-            letterSpacing: 'var(--tracking-display)',
-            color: 'var(--color-ink)',
-            fontFamily: 'var(--font-display)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '1rem',
+            marginTop: '2rem',
           }}
         >
-          Transparent Pricing
-        </h2>
-        <p className="text-lg mb-8" style={{ color: 'var(--color-muted)' }}>
-          Plans that scale with you, not against you.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className="relative p-8 border"
               style={{
                 background: tier.bg,
-                borderColor: 'var(--color-rule)',
+                border: '1px solid var(--color-rule)',
                 borderRadius: 'var(--radius-card)',
-                boxShadow: 'var(--shadow-card)',
+                padding: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                position: 'relative',
+                ...(tier.popular
+                  ? {
+                      boxShadow: '0 24px 60px -30px rgba(0, 0, 60, 0.35)',
+                    }
+                  : {}),
               }}
             >
+              {/* Badge */}
               {tier.popular && (
-                <div className="absolute top-0 right-4 -mt-3">
-                  <span
-                    className="px-3 py-1 text-sm font-bold rounded-full"
-                    style={{
-                      background: 'var(--color-accent)',
-                      color: 'var(--color-accent-ink)',
-                      borderRadius: 'var(--radius-pill)',
-                    }}
-                  >
-                    Most teams pick this
-                  </span>
-                </div>
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '-12px',
+                    left: '2rem',
+                    fontFamily: 'var(--font-label)',
+                    fontSize: '10px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    background: 'var(--color-accent)',
+                    color: 'var(--color-accent-ink)',
+                    borderRadius: 'var(--radius-pill)',
+                    padding: '4px 12px',
+                  }}
+                >
+                  Most teams pick this
+                </span>
               )}
-              <h3
-                className="text-2xl font-bold mb-2"
-                style={{ color: 'var(--color-ink)', fontFamily: 'var(--font-display)' }}
+
+              {/* Tier name — mono, xs, uppercase */}
+              <div
+                style={{
+                  fontFamily: 'var(--font-label)',
+                  fontSize: '0.75rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.12em',
+                  color: 'var(--color-muted)',
+                }}
               >
                 {tier.name}
-              </h3>
-              <div className="flex items-baseline gap-1 mb-1">
-                <p
-                  className="text-4xl font-bold"
-                  style={{ color: 'var(--color-ink)', fontFamily: 'var(--font-display)' }}
-                >
-                  {tier.price}
-                </p>
+              </div>
+
+              {/* Price — display, 3xl, 600, tight tracking */}
+              <div
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.875rem',
+                  fontWeight: 600,
+                  letterSpacing: '-0.03em',
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: '4px',
+                  color: 'var(--color-ink)',
+                }}
+              >
+                {tier.price}
                 {tier.unit && (
-                  <span
-                    className="text-sm"
-                    style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-label)' }}
+                  <small
+                    style={{
+                      fontSize: '0.4em',
+                      fontWeight: 400,
+                      color: 'var(--color-muted)',
+                    }}
                   >
                     {tier.unit}
-                  </span>
+                  </small>
                 )}
               </div>
+
+              {/* Description — sm, pulled close to price */}
               <p
-                className="mb-4"
-                style={{ color: 'var(--color-muted)', fontSize: '0.875rem' }}
+                style={{
+                  fontSize: '0.875rem',
+                  color: 'var(--color-muted)',
+                  marginTop: '-4px',
+                }}
               >
                 {tier.description}
               </p>
-              <ul className="space-y-2 mb-8 text-left">
+
+              {/* Features — checkmarks, gap 8px */}
+              <ul
+                style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                  fontSize: '0.875rem',
+                }}
+              >
                 {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2" style={{ color: 'var(--color-muted)' }}>
-                    <span style={{ color: 'var(--color-accent)' }}>·</span>
+                  <li
+                    key={f}
+                    style={{
+                      paddingLeft: '22px',
+                      position: 'relative',
+                      color: 'var(--color-muted)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        color: 'var(--color-accent)',
+                        fontWeight: 700,
+                      }}
+                    >
+                      ✓
+                    </span>
                     {f}
                   </li>
                 ))}
               </ul>
+
+              {/* CTA — pill button */}
               <button
-                className="w-full px-6 py-3 font-medium transition-opacity hover:opacity-90"
-                style={
-                  tier.popular
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '14px 22px',
+                  borderRadius: 'var(--radius-pill)',
+                  fontWeight: 500,
+                  fontSize: '1rem',
+                  border: '1px solid transparent',
+                  width: '100%',
+                  marginTop: 'auto',
+                  cursor: 'pointer',
+                  transition: 'transform 0.15s ease',
+                  ...(tier.popular
                     ? {
                         background: 'var(--color-accent)',
                         color: 'var(--color-accent-ink)',
-                        borderRadius: 'var(--radius-pill)',
+                        borderColor: 'var(--color-accent)',
                       }
                     : {
-                        background: 'var(--color-paper-3)',
-                        color: 'var(--color-ink)',
-                        borderRadius: 'var(--radius-pill)',
-                      }
-                }
+                        background: 'var(--color-ink)',
+                        color: 'var(--color-paper)',
+                        borderColor: 'var(--color-ink)',
+                      }),
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
                 {tier.cta}
               </button>
