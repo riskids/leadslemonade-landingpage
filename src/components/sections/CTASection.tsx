@@ -24,7 +24,7 @@ const CTASection = () => {
           className="text-lg mb-8"
           style={{ color: "var(--color-muted)" }}
         >
-          Growth your teams using LeadsLemonade for high-quality prospecting.
+          Grow your teams using LeadsLemonade for high-quality prospecting.
         </p>
         <Link
           href="/contact"

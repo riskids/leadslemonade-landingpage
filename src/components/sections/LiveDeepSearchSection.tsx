@@ -42,9 +42,8 @@ function ProfileCard({ profile }: { profile: typeof profiles[0] }) {
     <div
       className="p-4 rounded-xl"
       style={{
-        background: "color-mix(in oklch, var(--color-paper-2) 40%, transparent)",
+        background: "color-mix(in oklch, var(--color-paper-2) 70%, transparent)",
         border: "1px solid color-mix(in oklch, var(--color-accent) 10%, transparent)",
-        backdropFilter: "blur(12px)",
         borderRadius: "var(--radius-card)",
       }}
     >
@@ -68,12 +67,12 @@ function ProfileCard({ profile }: { profile: typeof profiles[0] }) {
           </div>
         )}
         <div>
-          <h4
+          <h3
             className="text-sm font-bold leading-tight"
             style={{ color: "var(--color-ink)" }}
           >
             {profile.name}
-          </h4>
+          </h3>
           <p
             className="text-xs mt-0.5"
             style={{ color: "var(--color-muted)" }}
@@ -194,7 +193,7 @@ function DetailedProfileCard() {
                     Senior Back End Engineer @ Goto Group
                   </p>
                   <p
-                    className="text-sm mt-1 flex items-center gap-1.5 italic opacity-80"
+                    className="text-sm mt-1 flex items-center gap-1.5 opacity-80"
                     style={{ color: "var(--color-muted)" }}
                   >
                     <span
