@@ -1,0 +1,66 @@
+// Prisma schema for LeadsLemonade SEO Blog backend
+// Datasource: MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Category {
+  id          Int        @id @default(autoincrement())
+  name        String
+  slug        String     @unique
+  description String?    @db.Text
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  blogPosts BlogPost[]
+
+  @@map("categories")
+}
+
+model BlogPost {
+  id             Int        @id @default(autoincrement())
+  title          String
+  slug           String     @unique
+  excerpt        String     @db.Text
+  content        String     @db.LongText
+  coverImage     String?
+  categoryId     Int
+  author         String
+  status         PostStatus @default(DRAFT)
+  metaTitle      String     @db.VarChar(255)
+  metaDescription String    @db.Text
+  keywords       Json
+  readingTime    Int        @default(1)
+  publishedAt    DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  @@index([categoryId])
+  @@index([status])
+  @@index([publishedAt])
+  @@map("blog_posts")
+}
+
+model SeoSettings {
+  id                 Int      @id @default(1)
+  siteName           String   @db.VarChar(120)
+  defaultTitle       String   @db.VarChar(255)
+  defaultDescription String   @db.Text
+  defaultSocialImage String?
+  updatedAt          DateTime @updatedAt
+
+  @@map("seo_settings")
+}

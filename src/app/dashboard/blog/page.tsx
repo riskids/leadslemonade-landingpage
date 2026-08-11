@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import DashboardShell from "@/components/dashboard/DashboardShell";
-import BlogTable from "@/components/blog/BlogTable";
-import { posts } from "@/lib/blog-data";
+import DashboardBlogTable from "./DashboardBlogTable";
 
 export const metadata: Metadata = {
   title: "Blog Dashboard | LeadsLemonade",
@@ -26,7 +25,7 @@ export default function BlogDashboardPage() {
         </div>
         <Link
           href="/dashboard/blog/create"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
+          className="inline-flex min-h-11 items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
           style={{ background: "var(--color-accent)", color: "var(--color-accent-ink)" }}
         >
           <span className="material-symbols-outlined text-lg">add</span>
@@ -38,7 +37,7 @@ export default function BlogDashboardPage() {
         className="border overflow-hidden"
         style={{ borderColor: "var(--color-rule)", borderRadius: "var(--radius-card)" }}
       >
-        <BlogTable posts={posts} />
+        <DashboardBlogTable />
       </div>
     </DashboardShell>
   );

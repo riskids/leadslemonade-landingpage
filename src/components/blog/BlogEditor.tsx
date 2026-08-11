@@ -1,17 +1,92 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import SEOScoreCard from "./SEOScoreCard";
 import SEOChecklist from "./SEOChecklist";
+import { createBlogPost, getCategoryOptions, updateBlogPost } from "@/lib/api/blog";
+import type { Category } from "@/types/blog";
+import type { BlogPost, BlogPostStatus } from "@/types/blog";
 
-export default function BlogEditor() {
-  const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
-  const [metaTitle, setMetaTitle] = useState("");
-  const [metaDescription, setMetaDescription] = useState("");
-  const [keywords, setKeywords] = useState("");
+interface BlogEditorProps {
+  post?: BlogPost;
+}
+
+export default function BlogEditor({ post }: BlogEditorProps) {
+  const router = useRouter();
+  const [title, setTitle] = useState(post?.title ?? "");
+  const [slug, setSlug] = useState(post?.slug ?? "");
+  const [excerpt, setExcerpt] = useState(post?.excerpt ?? "");
+  const [author, setAuthor] = useState(post?.author ?? "Lead Lemonade");
+  const [coverImage, setCoverImage] = useState(post?.coverImage ?? "");
+  const [categoryId, setCategoryId] = useState(post ? String(post.categoryId) : "");
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [categoryError, setCategoryError] = useState<string | null>(null);
+  const [metaTitle, setMetaTitle] = useState(post?.metaTitle ?? "");
+  const [metaDescription, setMetaDescription] = useState(post?.metaDescription ?? "");
+  const [keywords, setKeywords] = useState(post?.keywords.join(", ") ?? "");
   const [imageAlt, setImageAlt] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(post?.content ?? "");
+  const [submitStatus, setSubmitStatus] = useState<BlogPostStatus | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    getCategoryOptions()
+      .then((options) => {
+        if (cancelled) return;
+        setCategories(options);
+        if (!post && options.length > 0) setCategoryId(String(options[0].id));
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setCategoryError(err instanceof Error ? err.message : "Unable to load categories.");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function handleSubmit(status: BlogPostStatus) {
+    if (submitStatus) return;
+    setSubmitError(null);
+
+    if (!title.trim() || !slug.trim() || !excerpt.trim() || !content.trim() || !author.trim() || !categoryId) {
+      setSubmitError("Title, slug, excerpt, content, author, and category are required.");
+      return;
+    }
+
+    setSubmitStatus(status);
+    try {
+      const payload = {
+        title: title.trim(),
+        slug: slug.trim(),
+        excerpt: excerpt.trim(),
+        content,
+        coverImage: coverImage.trim() || undefined,
+        categoryId: Number(categoryId),
+        author: author.trim(),
+        status,
+        metaTitle: metaTitle.trim(),
+        metaDescription: metaDescription.trim(),
+        keywords: keywords
+          .split(",")
+          .map((keyword) => keyword.trim())
+          .filter(Boolean),
+      };
+      if (post) {
+        await updateBlogPost(post.id, payload);
+      } else {
+        await createBlogPost(payload);
+      }
+      router.push("/dashboard/blog");
+    } catch (err) {
+      setSubmitStatus(null);
+      setSubmitError(err instanceof Error ? err.message : `Unable to ${post ? "update" : "create"} blog post.`);
+    }
+  }
 
   const checks = useMemo(
     () => [
@@ -44,7 +119,7 @@ export default function BlogEditor() {
   );
 
   const inputClass =
-    "w-full px-4 py-2.5 border text-sm focus:outline-none focus:ring-2 transition-colors";
+    "w-full min-h-11 px-4 py-2.5 border text-sm focus:outline-none focus:ring-2 transition-colors disabled:cursor-not-allowed disabled:opacity-60";
   const inputStyle = {
     background: "var(--color-paper)",
     borderColor: "var(--color-rule)",
@@ -54,7 +129,7 @@ export default function BlogEditor() {
   } as React.CSSProperties;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-8 items-start">
       <div className="space-y-6">
         <div className="space-y-2">
           <label htmlFor="title" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
@@ -72,6 +147,58 @@ export default function BlogEditor() {
         </div>
 
         <div className="space-y-2">
+          <label htmlFor="excerpt" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
+            Excerpt
+          </label>
+          <textarea
+            id="excerpt"
+            value={excerpt}
+            onChange={(e) => setExcerpt(e.target.value)}
+            placeholder="A short summary of the article"
+            rows={3}
+            className={`${inputClass} resize-none`}
+            style={inputStyle}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label htmlFor="author" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
+              Author
+            </label>
+            <input
+              id="author"
+              type="text"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              className={inputClass}
+              style={inputStyle}
+            />
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="category" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
+              Category
+            </label>
+            <select
+              id="category"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              disabled={categories.length === 0}
+              className={inputClass}
+              style={inputStyle}
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            {categoryError && <p className="text-xs" style={{ color: "var(--color-muted)" }}>{categoryError}</p>}
+          </div>
+        </div>
+
+        <div className="space-y-2">
           <label htmlFor="slug" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
             Slug
           </label>
@@ -86,51 +213,57 @@ export default function BlogEditor() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label htmlFor="metaTitle" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
-              Meta title
-            </label>
-            <input
-              id="metaTitle"
-              type="text"
-              value={metaTitle}
-              onChange={(e) => setMetaTitle(e.target.value)}
-              placeholder="AI Automation for SDRs | LeadsLemonade"
-              className={inputClass}
-              style={inputStyle}
-            />
+        <section className="space-y-6 border-t pt-6" style={{ borderColor: "var(--color-rule)" }}>
+          <div>
+            <h2 className="text-lg font-bold" style={{ fontFamily: "var(--font-display)" }}>Search optimization</h2>
+            <p className="text-sm mt-1" style={{ color: "var(--color-muted)" }}>Fine-tune how this article appears in search results.</p>
           </div>
-          <div className="space-y-2">
-            <label htmlFor="keywords" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
-              SEO keywords
-            </label>
-            <input
-              id="keywords"
-              type="text"
-              value={keywords}
-              onChange={(e) => setKeywords(e.target.value)}
-              placeholder="ai automation, sdr, lead generation"
-              className={inputClass}
-              style={inputStyle}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label htmlFor="metaTitle" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
+                Meta title
+              </label>
+              <input
+                id="metaTitle"
+                type="text"
+                value={metaTitle}
+                onChange={(e) => setMetaTitle(e.target.value)}
+                placeholder="AI Automation for SDRs | LeadsLemonade"
+                className={inputClass}
+                style={inputStyle}
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="keywords" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
+                SEO keywords
+              </label>
+              <input
+                id="keywords"
+                type="text"
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+                placeholder="ai automation, sdr, lead generation"
+                className={inputClass}
+                style={inputStyle}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="space-y-2">
-          <label htmlFor="metaDescription" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
-            Meta description
-          </label>
-          <textarea
-            id="metaDescription"
-            value={metaDescription}
-            onChange={(e) => setMetaDescription(e.target.value)}
-            placeholder="Learn how top GTM teams use AI automation to replace repetitive SDR tasks and scale outbound."
-            rows={3}
-            className={`${inputClass} resize-none`}
-            style={inputStyle}
-          />
-        </div>
+          <div className="space-y-2">
+            <label htmlFor="metaDescription" className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
+              Meta description
+            </label>
+            <textarea
+              id="metaDescription"
+              value={metaDescription}
+              onChange={(e) => setMetaDescription(e.target.value)}
+              placeholder="Learn how top GTM teams use AI automation to replace repetitive SDR tasks and scale outbound."
+              rows={3}
+              className={`${inputClass} resize-none`}
+              style={inputStyle}
+            />
+          </div>
+        </section>
         <div className="space-y-2">
           <label className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-ink-2)" }}>
             Featured image
@@ -147,6 +280,15 @@ export default function BlogEditor() {
               Click to upload featured image
             </span>
           </button>
+          <input
+            aria-label="Featured image URL"
+            type="url"
+            value={coverImage}
+            onChange={(e) => setCoverImage(e.target.value)}
+            placeholder="Featured image URL (optional)"
+            className={inputClass}
+            style={inputStyle}
+          />
         </div>
 
         <div className="space-y-2">
@@ -179,20 +321,31 @@ export default function BlogEditor() {
           />
         </div>
 
-        <div className="flex items-center gap-3 pt-2">
+        <div className="flex flex-col-reverse sm:flex-row sm:items-center gap-3 border-t pt-6" style={{ borderColor: "var(--color-rule)" }}>
+          {submitError && (
+            <p className="basis-full text-sm" style={{ color: "var(--color-muted)" }}>
+              {submitError}
+            </p>
+          )}
           <button
             type="button"
-            className="px-5 py-2.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
+            onClick={() => handleSubmit("DRAFT")}
+            disabled={submitStatus !== null}
+            aria-busy={submitStatus === "DRAFT"}
+            className="min-h-11 px-5 py-2.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             style={{ background: "var(--color-paper-3)", color: "var(--color-ink)" }}
           >
-            Save Draft
+            {submitStatus === "DRAFT" ? "Saving..." : "Save Draft"}
           </button>
           <button
             type="button"
-            className="px-5 py-2.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
+            onClick={() => handleSubmit("PUBLISHED")}
+            disabled={submitStatus !== null}
+            aria-busy={submitStatus === "PUBLISHED"}
+            className="min-h-11 px-5 py-2.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             style={{ background: "var(--color-accent)", color: "var(--color-accent-ink)" }}
           >
-            Publish
+            {submitStatus === "PUBLISHED" ? "Publishing..." : "Publish"}
           </button>
         </div>
       </div>

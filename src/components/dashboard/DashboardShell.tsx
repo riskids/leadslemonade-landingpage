@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const menu = [
-  { href: "#", label: "Dashboard", icon: "dashboard" },
+  { href: "/dashboard", label: "Overview", icon: "dashboard" },
   { href: "/dashboard/blog", label: "Blog Posts", icon: "article" },
-  { href: "#", label: "Categories", icon: "folder" },
-  { href: "#", label: "SEO Settings", icon: "tune" },
+  { href: "/dashboard/categories", label: "Categories", icon: "folder" },
+  { href: "/dashboard/seo-settings", label: "SEO Settings", icon: "tune" },
 ];
 
 interface DashboardShellProps {
@@ -14,15 +14,15 @@ interface DashboardShellProps {
 
 export default function DashboardShell({ children, active }: DashboardShellProps) {
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-8">
-        <aside className="hidden lg:block">
+    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-6 lg:gap-8">
+        <aside>
           <div
-            className="sticky top-24 space-y-1 p-4 border"
+            className="lg:sticky lg:top-24 flex lg:block gap-1 overflow-x-auto p-2 sm:p-3 border"
             style={{ borderColor: "var(--color-rule)", borderRadius: "var(--radius-card)" }}
           >
             <p
-              className="text-xs font-bold uppercase tracking-widest mb-3 px-3"
+              className="hidden lg:block text-xs font-bold uppercase tracking-widest mb-3 px-3"
               style={{ color: "var(--color-muted)" }}
             >
               Menu
@@ -33,7 +33,7 @@ export default function DashboardShell({ children, active }: DashboardShellProps
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors"
+                  className="shrink-0 flex min-h-11 items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors hover:bg-paper-3"
                   style={
                     isActive
                       ? { background: "var(--color-accent)", color: "var(--color-accent-ink)" }
