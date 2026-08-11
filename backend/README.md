@@ -91,28 +91,12 @@ DATABASE_URL="mysql://root:password@localhost:3306/blog_db"
 PORT=5000
 NODE_ENV=development
 CLIENT_ORIGIN="http://localhost:3000"
-AUTH_SESSION_SECRET="change-this-to-a-random-secret"
-AUTH_COOKIE_NAME="leadslemonade_admin_session"
-AUTH_SESSION_TTL_DAYS=7
-AUTH_COOKIE_SAME_SITE="lax"
 ```
 
 - `DATABASE_URL` — MySQL connection string.
 - `PORT` — HTTP port (default 5000).
-- `CLIENT_ORIGIN` — comma-separated trusted frontend origins. Do not use `*` in production.
-- `AUTH_SESSION_SECRET` — HMAC secret; production requires at least 32 characters.
-- `AUTH_COOKIE_SAME_SITE` — `lax`, `strict`, or `none`. `none` requires production HTTPS.
+- `CLIENT_ORIGIN` — Allowed CORS origin for the frontend (Next.js dev server is `http://localhost:3000`). Use `*` to allow all.
 - `NODE_ENV` — `development` | `production`.
-
-### Authentication deployment
-
-The dashboard uses an opaque database-backed session in an HTTP-only cookie. The raw token is never stored or logged; only its HMAC representation is stored in `auth_sessions`.
-
-- Local frontend `http://localhost:3000` and API `http://localhost:5001` use `SameSite=Lax`, `Secure=false`.
-- Production same-site frontend/API deployments use `Secure=true` with `SameSite=Lax` (or `Strict` if the deployment supports it).
-- A truly cross-site frontend/API deployment must use `SameSite=None`, `Secure=true`, HTTPS on both origins, and explicit `CLIENT_ORIGIN`.
-- State-changing authenticated requests reject an unexpected `Origin`; CORS is not the only protection.
-- Run `ADMIN_EMAIL=... ADMIN_PASSWORD=... npm run admin:create` to create/update one admin non-destructively. Passwords are never committed.
 
 ---
 

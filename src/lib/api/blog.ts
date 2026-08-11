@@ -85,7 +85,6 @@ async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
       // stale data on the client. Mutations opt out of this cache policy below.
       ...(init.method ? {} : { next: { revalidate: 60 } }),
       ...init,
-      credentials: "include",
       headers,
       signal,
     });

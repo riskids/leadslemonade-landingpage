@@ -15,10 +15,6 @@ enum PostStatus {
   PUBLISHED
 }
 
-enum UserRole {
-  ADMIN
-}
-
 model Category {
   id          Int        @id @default(autoincrement())
   name        String
@@ -67,29 +63,4 @@ model SeoSettings {
   updatedAt          DateTime @updatedAt
 
   @@map("seo_settings")
-}
-
-model User {
-  id           Int           @id @default(autoincrement())
-  email        String        @unique @db.VarChar(255)
-  passwordHash String        @db.VarChar(255)
-  role         UserRole      @default(ADMIN)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  sessions     AuthSession[]
-
-  @@map("users")
-}
-
-model AuthSession {
-  id        Int      @id @default(autoincrement())
-  tokenHash String   @unique @db.VarChar(64)
-  userId    Int
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([expiresAt])
-  @@map("auth_sessions")
 }

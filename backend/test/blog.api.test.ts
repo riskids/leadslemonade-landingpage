@@ -1,6 +1,5 @@
 import { after, before, test } from "node:test";
 import assert from "node:assert/strict";
-import bcrypt from "bcryptjs";
 import type { AddressInfo } from "node:net";
 import { createApp } from "../src/app";
 import { prisma } from "../src/config/prisma";
@@ -16,23 +15,15 @@ type JsonObject = Record<string, any>;
 
 const prefix = `api-regression-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const categorySlug = `${prefix}-category`;
-const adminEmail = `${prefix}@example.test`;
 let baseUrl = "";
-let sessionCookie = "";
 let server: ReturnType<ReturnType<typeof createApp>["listen"]>;
 let categoryId: number;
 const postIds: number[] = [];
 
-async function request(path: string, init: RequestInit = {}): Promise<{ status: number; body: JsonObject; setCookie?: string }> {
-  const headers = new Headers(init.headers);
-  if (sessionCookie) headers.set("cookie", sessionCookie);
-  const response = await fetch(`${baseUrl}${path}`, { ...init, headers });
-  return { status: response.status, body: (await response.json()) as JsonObject, setCookie: response.headers.get("set-cookie") ?? undefined };
-}
-
-function loginHeadersCookie(response: { setCookie?: string }): string {
-  assert.ok(response.setCookie);
-  return response.setCookie!.split(";")[0];
+async function request(path: string, init?: RequestInit): Promise<{ status: number; body: JsonObject }> {
+  const response = await fetch(`${baseUrl}${path}`, init);
+  const body = (await response.json()) as JsonObject;
+  return { status: response.status, body };
 }
 
 function jsonInit(method: string, body: JsonObject): RequestInit {
@@ -64,22 +55,29 @@ function data(response: { status: number; body: JsonObject }): JsonObject {
 }
 
 before(async () => {
-  await prisma.user.create({ data: { email: adminEmail, passwordHash: await bcrypt.hash("RegressionPassword!123", 4), role: "ADMIN" } });
-  categoryId = (await prisma.category.create({ data: { name: `${prefix} category`, slug: categorySlug, description: "Created and removed by the blog API regression suite" } })).id;
+  categoryId = (
+    await prisma.category.create({
+      data: {
+        name: `${prefix} category`,
+        slug: categorySlug,
+        description: "Created and removed by the blog API regression suite",
+      },
+    })
+  ).id;
+
   await new Promise<void>((resolve) => {
-    server = createApp().listen(0, () => { const address = server.address() as AddressInfo; baseUrl = `http://127.0.0.1:${address.port}`; resolve(); });
+    server = createApp().listen(0, () => {
+      const address = server.address() as AddressInfo;
+      baseUrl = `http://127.0.0.1:${address.port}`;
+      resolve();
+    });
   });
-  const login = await request("/api/auth/login", jsonInit("POST", { email: adminEmail, password: "RegressionPassword!123" }));
-  assert.equal(login.status, 200);
-  sessionCookie = loginHeadersCookie(login);
 });
 
 after(async () => {
   if (server) await new Promise<void>((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
   await prisma.blogPost.deleteMany({ where: { slug: { startsWith: prefix } } });
   if (categoryId) await prisma.category.delete({ where: { id: categoryId } });
-  await prisma.authSession.deleteMany({ where: { user: { email: adminEmail } } });
-  await prisma.user.deleteMany({ where: { email: adminEmail } });
   await prisma.$disconnect();
 });
 
