@@ -20,12 +20,22 @@ function asInt(name: string, fallback: number): number {
   return parsed;
 }
 
+const nodeEnv = process.env.NODE_ENV ?? "development";
+const isProd = nodeEnv === "production";
+const authSecret = required("AUTH_SESSION_SECRET", isProd ? undefined : "development-only-change-me");
+if (isProd && authSecret.length < 32) {
+  throw new Error("AUTH_SESSION_SECRET must be at least 32 characters in production");
+}
+
 export const env = {
-  nodeEnv: process.env.NODE_ENV ?? "development",
-  isProd: (process.env.NODE_ENV ?? "development") === "production",
+  nodeEnv,
+  isProd,
   port: asInt("PORT", 5000),
   databaseUrl: required("DATABASE_URL"),
   clientOrigin: process.env.CLIENT_ORIGIN ?? "*",
+  authSecret,
+  authCookieName: process.env.AUTH_COOKIE_NAME ?? "leadslemonade_admin_session",
+  authSessionTtlDays: asInt("AUTH_SESSION_TTL_DAYS", 7),
 } as const;
 
 export type Env = typeof env;

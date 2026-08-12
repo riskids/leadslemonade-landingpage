@@ -11,32 +11,21 @@ import routes from "./routes";
 export function createApp(): Express {
   const app = express();
 
-  // Security & core middleware
   app.use(helmet());
-  app.use(
-    cors({
-      origin: env.clientOrigin === "*" ? true : env.clientOrigin,
-      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-    })
-  );
+  app.use(cors({
+    origin: env.clientOrigin === "*" ? true : env.clientOrigin.split(",").map((value) => value.trim()),
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }));
   app.use(express.json({ limit: "5mb" }));
   app.use(express.urlencoded({ extended: true }));
 
-  // Request logging (skip in test)
-  if (env.nodeEnv !== "test") {
-    app.use(morgan(env.isProd ? "combined" : "dev"));
-  }
-
-  // Global rate limiter
+  if (env.nodeEnv !== "test") app.use(morgan(env.isProd ? "combined" : "dev"));
   app.use("/api", apiRateLimiter);
-
-  // Routes
   app.use("/api", routes);
-
-  // 404 + global error handler (must be last)
   app.use(notFound);
   app.use(errorHandler);
-
   return app;
 }
+
