@@ -9,7 +9,7 @@ import "./globals.css";
 const materialSymbols = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap";
 
 const fallbackTitle = "LeadsLemonade | Leads Generation Platform";
-const fallbackDescription = "Find anyone using natural language, verify emails in real-time, and start for as low as $5. AI-powered lead discovery with 99.9% deliverability.";
+const fallbackDescription = "Find anyone using natural language, verify emails in real-time, and start for as low as $5. AI-powered lead discovery with high deliverability focus.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSeoSettingsSafe();

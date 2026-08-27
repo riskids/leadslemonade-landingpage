@@ -166,7 +166,7 @@ const FeaturesSection = () => {
                 Data Freshness
               </h3>
               <p style={{ color: 'var(--color-muted)' }}>
-                Zero stale databases. Every search triggers a live scrape to ensure contact info is accurate as of this minute.
+                Freshness-first enrichment. New searches trigger live checks so contact info is current when you pick a lead.
               </p>
             </div>
             <div className="flex items-center gap-3 shrink-0">
