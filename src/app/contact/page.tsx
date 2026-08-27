@@ -58,18 +58,18 @@ export default function ContactPage() {
         {/* Ambient glow */}
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full pointer-events-none -z-10"
-          style={{ background: "rgba(83,216,227,0.05)", filter: "blur(120px)" }}
+          style={{ background: "color-mix(in oklch, var(--color-accent) 5%, transparent)", filter: "blur(120px)" }}
         />
 
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           {/* Left: Contact Info */}
           <div className="lg:col-span-5 space-y-12">
             <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight" style={{ color: "#dde3ec" }}>
+              <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight" style={{ color: "var(--color-ink)" }}>
                 Have something in mind?{" "}
-                <span style={{ color: "#53d8e3" }}>Contact us</span>
+                <span style={{ color: "var(--color-accent)" }}>Contact us</span>
               </h1>
-              <p className="text-lg leading-relaxed max-w-md" style={{ color: "#bbc9ca" }}>
+              <p className="text-lg leading-relaxed max-w-md" style={{ color: "var(--color-muted)" }}>
                 Our team is here to help you scale. Send us a message and
                 we&apos;ll get back to you shortly.
               </p>
@@ -82,14 +82,14 @@ export default function ContactPage() {
                   icon: "mail",
                   label: "Email Support",
                   value: "support@leadslemonade.com",
-                  accent: "#53d8e3",
-                  iconBg: "rgba(83,216,227,0.1)",
+                  accent: "var(--color-accent)",
+                  iconBg: "color-mix(in oklch, var(--color-accent) 10%, transparent)",
                 },
               ].map((contact) => (
                 <div
                   key={contact.label}
                   className="flex items-start gap-4 p-6 rounded-xl border"
-                  style={{ background: "#161c22", borderColor: "rgba(60,73,74,0.1)" }}
+                  style={{ background: "var(--color-paper-2)", borderColor: "color-mix(in oklch, var(--color-rule) 40%, transparent)" }}
                 >
                   <div className="w-12 h-12 rounded-lg flex items-center justify-center"
                     style={{ background: contact.iconBg }}>
@@ -101,7 +101,7 @@ export default function ContactPage() {
                     <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: contact.accent }}>
                       {contact.label}
                     </p>
-                    <p className="font-medium" style={{ color: "#dde3ec" }}>{contact.value}</p>
+                    <p className="font-medium" style={{ color: "var(--color-ink)" }}>{contact.value}</p>
                   </div>
                 </div>
               ))}
@@ -112,9 +112,9 @@ export default function ContactPage() {
           <div className="lg:col-span-7">
             <div
               className="glass-card p-10 md:p-12 rounded-3xl border"
-              style={{ borderColor: "rgba(60,73,74,0.15)" }}
+              style={{ borderColor: "color-mix(in oklch, var(--color-rule) 40%, transparent)" }}
             >
-              <h2 className="text-2xl font-bold mb-8 tracking-tight" style={{ color: "#dde3ec" }}>
+              <h2 className="text-2xl font-bold mb-8 tracking-tight" style={{ color: "var(--color-ink)" }}>
                 Send a secure message
               </h2>
 
@@ -122,19 +122,19 @@ export default function ContactPage() {
                 <div className="text-center py-16">
                   <div
                     className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
-                    style={{ background: "rgba(83,216,227,0.15)" }}
+                    style={{ background: "color-mix(in oklch, var(--color-accent) 15%, transparent)" }}
                   >
-                    <span className="material-symbols-outlined text-3xl" style={{ color: "#53d8e3", fontVariationSettings: "'FILL' 1" }}>
+                    <span className="material-symbols-outlined text-3xl" style={{ color: "var(--color-accent)", fontVariationSettings: "'FILL' 1" }}>
                       check_circle
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: "#dde3ec" }}>Message Transmitted</h3>
-                  <p style={{ color: "#bbc9ca" }}>We&apos;ll get back to you shorty.</p>
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: "var(--color-ink)" }}>Message Transmitted</h3>
+                  <p style={{ color: "var(--color-muted)" }}>We&apos;ll get back to you shorty.</p>
                 </div>
               ) : (
                 <form id="contact-form" className="space-y-6" onSubmit={handleSubmit}>
                   <div className="space-y-2">
-                    <label htmlFor="contact-name" className="text-xs font-bold uppercase tracking-widest ml-1" style={{ color: "#bbc9ca" }}>
+                    <label htmlFor="contact-name" className="text-xs font-bold uppercase tracking-widest ml-1" style={{ color: "var(--color-muted)" }}>
                       Full Name
                     </label>
                     <input
@@ -146,23 +146,23 @@ export default function ContactPage() {
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       className="w-full rounded-xl px-4 py-4 outline-none transition-all"
                       style={{
-                        background: "#161c22",
-                        border: "1px solid rgba(60,73,74,0.2)",
-                        color: "#dde3ec",
+                        background: "var(--color-paper-2)",
+                        border: "1px solid color-mix(in oklch, var(--color-rule) 50%, transparent)",
+                        color: "var(--color-ink)",
                       }}
                       onFocus={(e) => {
-                        e.target.style.borderColor = "#53d8e3";
-                        e.target.style.boxShadow = "0 0 0 3px rgba(83,216,227,0.1)";
+                        e.target.style.borderColor = "var(--color-accent)";
+                        e.target.style.boxShadow = "0 0 0 3px color-mix(in oklch, var(--color-accent) 10%, transparent)";
                       }}
                       onBlur={(e) => {
-                        e.target.style.borderColor = "rgba(60,73,74,0.2)";
+                        e.target.style.borderColor = "color-mix(in oklch, var(--color-rule) 50%, transparent)";
                         e.target.style.boxShadow = "none";
                       }}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="contact-email" className="text-xs font-bold uppercase tracking-widest ml-1" style={{ color: "#bbc9ca" }}>
+                    <label htmlFor="contact-email" className="text-xs font-bold uppercase tracking-widest ml-1" style={{ color: "var(--color-muted)" }}>
                       Email Address
                     </label>
                     <input
@@ -174,23 +174,23 @@ export default function ContactPage() {
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                       className="w-full rounded-xl px-4 py-4 outline-none transition-all"
                       style={{
-                        background: "#161c22",
-                        border: "1px solid rgba(60,73,74,0.2)",
-                        color: "#dde3ec",
+                        background: "var(--color-paper-2)",
+                        border: "1px solid color-mix(in oklch, var(--color-rule) 50%, transparent)",
+                        color: "var(--color-ink)",
                       }}
                       onFocus={(e) => {
-                        e.target.style.borderColor = "#53d8e3";
-                        e.target.style.boxShadow = "0 0 0 3px rgba(83,216,227,0.1)";
+                        e.target.style.borderColor = "var(--color-accent)";
+                        e.target.style.boxShadow = "0 0 0 3px color-mix(in oklch, var(--color-accent) 10%, transparent)";
                       }}
                       onBlur={(e) => {
-                        e.target.style.borderColor = "rgba(60,73,74,0.2)";
+                        e.target.style.borderColor = "color-mix(in oklch, var(--color-rule) 50%, transparent)";
                         e.target.style.boxShadow = "none";
                       }}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-widest ml-1" style={{ color: "#bbc9ca" }}>
+                    <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-widest ml-1" style={{ color: "var(--color-muted)" }}>
                       Message
                     </label>
                     <textarea
@@ -202,16 +202,16 @@ export default function ContactPage() {
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                       className="w-full rounded-xl px-4 py-4 outline-none transition-all resize-none"
                       style={{
-                        background: "#161c22",
-                        border: "1px solid rgba(60,73,74,0.2)",
-                        color: "#dde3ec",
+                        background: "var(--color-paper-2)",
+                        border: "1px solid color-mix(in oklch, var(--color-rule) 50%, transparent)",
+                        color: "var(--color-ink)",
                       }}
                       onFocus={(e) => {
-                        e.target.style.borderColor = "#53d8e3";
-                        e.target.style.boxShadow = "0 0 0 3px rgba(83,216,227,0.1)";
+                        e.target.style.borderColor = "var(--color-accent)";
+                        e.target.style.boxShadow = "0 0 0 3px color-mix(in oklch, var(--color-accent) 10%, transparent)";
                       }}
                       onBlur={(e) => {
-                        e.target.style.borderColor = "rgba(60,73,74,0.2)";
+                        e.target.style.borderColor = "color-mix(in oklch, var(--color-rule) 50%, transparent)";
                         e.target.style.boxShadow = "none";
                       }}
                     />
@@ -223,9 +223,9 @@ export default function ContactPage() {
                     id="contact-submit-btn"
                     className="w-full py-5 rounded-xl font-black text-sm uppercase tracking-widest active:scale-[0.98] transition-all"
                     style={{
-                      background: "linear-gradient(135deg, #53d8e3 0%, #00afb9 100%)",
-                      color: "#00363a",
-                      boxShadow: "0 4px 20px rgba(83,216,227,0.1)",
+                      background: "var(--color-accent)",
+                      color: "var(--color-accent-ink)",
+                      boxShadow: "0 4px 20px color-mix(in oklch, var(--color-accent) 15%, transparent)",
                       opacity: isSubmitting ? 0.7 : 1,
                       cursor: isSubmitting ? "not-allowed" : "pointer"
                     }}
@@ -233,7 +233,7 @@ export default function ContactPage() {
                     {isSubmitting ? "Transmitting..." : "Transmit Message"}
                   </button>
                   {error && <p className="text-red-400 text-center text-sm">{error}</p>}
-                  <p className="text-center text-[10px] uppercase tracking-tighter" style={{ color: "rgba(187,201,202,0.6)" }}>
+                  <p className="text-center text-[10px] uppercase tracking-tighter" style={{ color: "color-mix(in oklch, var(--color-muted) 60%, transparent)" }}>
                     By sending this form, you agree to our data processing terms.
                   </p>
                 </form>
