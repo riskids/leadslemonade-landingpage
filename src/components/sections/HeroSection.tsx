@@ -5,14 +5,16 @@ import Link from 'next/link';
 import { ctaHref } from '@/lib/cta';
 
 const placeholders = [
-  "Try CEO of startups in Singapore..."
+  "Try CEO of startups in Singapore...",
+  "Try growth leads at fintech companies in Jakarta...",
+  "Try RevOps managers using Shopify..."
 ];
 
-const words = ['founder', 'owner', 'talent', 'anyone'];
+const words = ['founders', 'owners', 'talent', 'anyone'];
 
 export default function HeroSection() {
   const [placeholder, setPlaceholder] = useState(placeholders[0]);
-  const [word, setWord] = useState('founder');
+  const [word, setWord] = useState('founders');
 
   useEffect(() => {
     const i = setInterval(() => {
@@ -63,7 +65,7 @@ export default function HeroSection() {
                 fontFamily: "var(--font-display)",
               }}
             >
-              Search for{' '}
+              Find{' '}
               <span className="inline-block overflow-hidden h-[1.1em] align-bottom">
                 <span
                   key={word}
@@ -73,13 +75,13 @@ export default function HeroSection() {
                   {word}
                 </span>
               </span>
-              {' '}<br></br>easily.
+              {' '}<br></br>with one search.
             </h1>
             <p
               className="text-lg md:text-xl max-w-lg"
               style={{ color: 'var(--color-muted)' }}
             >
-              Find anyone using natural language, verify emails in real-time, and start for as low as $5.
+              Search with natural language, verify emails in real time, and start with 100 credits for $5.
             </p>
           </div>
 
