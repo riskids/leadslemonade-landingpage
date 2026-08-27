@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ctaHref } from "@/lib/cta";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,7 +83,7 @@ const Navbar = () => {
         {/* CTA */}
         <div className="hidden md:block shrink-0">
           <Link
-            href="/maintenance"
+            href={ctaHref("nav")}
             className="px-4 py-1.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
             style={{
               background: "var(--color-accent)",
@@ -142,7 +143,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <Link
-                href="/contact"
+                href={ctaHref("nav-mobile")}
                 onClick={() => setIsOpen(false)}
                 className="px-4 py-2 text-center font-medium rounded-full transition-opacity hover:opacity-90"
                 style={{

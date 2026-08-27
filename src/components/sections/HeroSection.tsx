@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ctaHref } from '@/lib/cta';
 
 const placeholders = [
   "Try CEO of startups in Singapore..."
@@ -87,6 +89,7 @@ export default function HeroSection() {
               <input
                 type="text"
                 placeholder={placeholder}
+                aria-label="Lead search query"
                 className="w-full px-6 py-4 border focus:outline-none focus:ring-2 transition-colors"
                 style={{
                   background: 'var(--color-paper-2)',
@@ -95,8 +98,8 @@ export default function HeroSection() {
                   '--tw-ring-color': 'var(--color-accent)',
                 } as React.CSSProperties}
               />
-              <a
-                href="/maintenance"
+              <Link
+                href={ctaHref("hero-search")}
                 className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 font-medium"
                 style={{
                   background: 'var(--color-accent)',
@@ -105,7 +108,7 @@ export default function HeroSection() {
                 }}
               >
                 Search
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,9 +1,13 @@
 "use client";
 
+import Link from "next/link";
+import { ctaHref } from "@/lib/cta";
+
 const PricingSection = () => {
   const tiers = [
     {
       name: "Free Sample",
+      plan: "free",
       price: "$0",
       unit: "",
       description: "Up to 10 leads / month. For testing the waters.",
@@ -18,6 +22,7 @@ const PricingSection = () => {
     },
     {
       name: "Micro Squeeze",
+      plan: "micro",
       price: "$5",
       unit: "",
       description: "One-time credit pack. No subscription, no expiry.",
@@ -33,6 +38,7 @@ const PricingSection = () => {
     },
     {
       name: "Fresh Monthly",
+      plan: "monthly",
       price: "$29.90",
       unit: "/ mo",
       description: "For teams scaling outbound. No credit ceiling.",
@@ -211,8 +217,10 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              {/* CTA — pill button */}
-              <button
+              {/* CTA — pill link */}
+              <Link
+                href={ctaHref("pricing", { plan: tier.plan })}
+                aria-label={`${tier.cta} — ${tier.name}`}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -247,7 +255,7 @@ const PricingSection = () => {
                 }}
               >
                 {tier.cta}
-              </button>
+              </Link>
             </div>
           ))}
         </div>
