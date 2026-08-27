@@ -660,24 +660,31 @@ export default function LiveDeepSearchSection() {
               className="mb-8 leading-relaxed"
               style={{ color: "var(--color-muted)" }}
             >
-              Watch our engine scrape, verify, and enrich data in real-time.
-              We don&apos;t just find emails; we build full profiles with over
-              30+ data points including tech stacks and company details.
+              See the data enriched for every lead: role, company, tech
+              stack, and verification status. New searches trigger fresh
+              enrichment so outreach starts from current context.
             </p>
             <div className="space-y-4">
               <FeatureBullet
                 icon="verified"
                 accent="var(--color-accent)"
-                title="99.9% Deliverability"
-                desc="Multi-layer SMTP verification"
+                title="High deliverability focus"
+                desc="Multi-layer SMTP checks before a lead is counted."
               />
               <FeatureBullet
                 icon="coin"
                 accent="var(--color-accent-2)"
-                title="Pay what you get"
-                desc="No hidden fees. Pay only for the leads you actually pick."
+                title="Pay only for verified picks"
+                desc="No hidden fees. Credits are spent only on leads you choose."
               />
             </div>
+            <p
+              className="mt-4 text-xs"
+              style={{ color: "var(--color-muted)" }}
+            >
+              Deliverability means recipient SMTP acceptance during
+              verification; bounced or unknown leads are not counted.
+            </p>
           </div>
 
           {/* Right: Cards panel with scroll animation */}
