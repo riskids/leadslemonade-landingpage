@@ -53,13 +53,13 @@ export default function MaintenancePage() {
   }
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] overflow-x-hidden font-sans">
+    <main className="relative min-h-screen flex flex-col items-center justify-center bg-paper overflow-x-hidden font-sans">
       {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-[#53d8e3]/10 blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-[#97cbff]/5 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-accent/10 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-accent-2/5 blur-[150px] rounded-full pointer-events-none"></div>
       
       {/* Hero Content */}
-      <section className="max-w-4xl mx-auto px-8 text-center relative z-10 py-16 text-[#dde3ec]">
+      <section className="max-w-4xl mx-auto px-8 text-center relative z-10 py-16 text-ink">
         <div className="flex justify-center mb-12">
           <Image 
             src="/logo.png" 
@@ -73,35 +73,35 @@ export default function MaintenancePage() {
         
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-[1.1]">
           Something Big is{" "}
-          <span className="bg-gradient-to-br from-[#53d8e3] to-[#00afb9] bg-clip-text text-transparent">
+          <span style={{ color: "var(--color-accent)" }}>
             Brewing
           </span>
         </h1>
         
-        <p className="text-lg md:text-xl text-[#bbc9ca] max-w-2xl mx-auto mb-12 leading-relaxed">
+        <p className="text-lg md:text-xl text-muted max-w-2xl mx-auto mb-12 leading-relaxed">
           Be the first to taste the freshest leads. We&apos;re refining our precision engine to deliver high-performance growth directly to your pipeline.
         </p>
         
         {/* Subscription Form */}
         {submitted ? (
-          <div className="p-8 rounded-xl border max-w-md mx-auto" style={{ background: "rgba(255, 255, 255, 0.03)", backdropFilter: "blur(16px)", borderColor: "rgba(0, 175, 185, 0.1)" }}>
-             <span className="material-symbols-outlined text-4xl mb-4" style={{ color: "#53d8e3" }}>check_circle</span>
+          <div className="p-8 rounded-xl border max-w-md mx-auto" style={{ background: "color-mix(in oklch, var(--color-paper-2) 70%, transparent)", backdropFilter: "blur(16px)", borderColor: "color-mix(in oklch, var(--color-accent-2) 20%, transparent)" }}>
+             <span className="material-symbols-outlined text-4xl mb-4" style={{ color: "var(--color-accent)" }}>check_circle</span>
              <h3 className="text-xl font-bold mb-2">You&apos;re on the list!</h3>
-             <p className="text-sm" style={{ color: "#bbc9ca" }}>We&apos;ll notify you at {email} the moment we are ready to launch.</p>
+             <p className="text-sm" style={{ color: "var(--color-muted)" }}>We&apos;ll notify you at {email} the moment we are ready to launch.</p>
           </div>
         ) : (
           <form 
             onSubmit={handleSubscribe}
             className="p-2 rounded-xl border max-w-md mx-auto flex flex-col sm:flex-row gap-2 relative"
             style={{ 
-              background: "rgba(255, 255, 255, 0.03)", 
+              background: "color-mix(in oklch, var(--color-paper-2) 70%, transparent)", 
               backdropFilter: "blur(16px)", 
-              borderColor: "rgba(0, 175, 185, 0.1)" 
+              borderColor: "color-mix(in oklch, var(--color-accent-2) 20%, transparent)" 
             }}
           >
             <input 
-              className="flex-grow border-0 focus:ring-2 focus:ring-[#53d8e3]/20 text-[#dde3ec] rounded-lg px-4 py-3 placeholder:text-[#bbc9ca]/50 transition-all focus:outline-none" 
-              style={{ background: "#161c22" }}
+              className="flex-grow border-0 focus:ring-2 focus:ring-accent/20 text-ink rounded-lg px-4 py-3 placeholder:text-muted/50 transition-all focus:outline-none" 
+              style={{ background: "var(--color-paper-2)" }}
               placeholder="Enter your professional email" 
               type="email"
               required
@@ -111,7 +111,7 @@ export default function MaintenancePage() {
             <button 
               type="submit"
               disabled={isSubmitting}
-              className="bg-gradient-to-br from-[#53d8e3] to-[#00afb9] font-bold px-8 py-3 rounded-lg hover:brightness-110 active:scale-95 transition-all text-[#00363a] whitespace-nowrap"
+              className="bg-accent font-bold px-8 py-3 rounded-lg hover:brightness-110 active:scale-95 transition-all text-accent-ink whitespace-nowrap"
               style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? "not-allowed" : "pointer" }}
             >
               {isSubmitting ? "Sending..." : "Notify Me"}
