@@ -1,40 +1,58 @@
 "use client";
 
-/* ─── Profile data for search grid ─── */
+/* ─── Profile data for search grid (synthetic sample output) ─── */
 const profiles = [
   {
     id: 1,
-    initials: "AS",
-    name: "Andrew Sebastian",
-    role: "Senior Back End Engineer @ Goto Group",
-    location: "Jakarta, Indonesia",
-    imgUrl: "/andrew-sebastian.jpg",
+    initials: "FT",
+    name: "F. Tan",
+    role: "Founder @ B2B SaaS",
+    location: "Singapore",
+    imgUrl: "",
   },
   {
     id: 2,
-    initials: "PC",
-    name: "Paul Copplestone",
-    role: "Co-Founder & CEO @ Supabase",
-    location: "Singapore",
-    imgUrl: "https://avatars.githubusercontent.com/u/10214025?v=4",
+    initials: "RM",
+    name: "R. Ma",
+    role: "Growth Lead @ Fintech",
+    location: "Jakarta, Indonesia",
+    imgUrl: "",
   },
   {
     id: 3,
-    initials: "KS",
-    name: "Karri Saarinen",
-    role: "Co-Founder & CEO @ Linear",
-    location: "San Francisco, CA",
-    imgUrl: "https://avatars.githubusercontent.com/u/260?v=4",
+    initials: "AL",
+    name: "A. Lim",
+    role: "Head of Sales @ HR Tech",
+    location: "Kuala Lumpur, Malaysia",
+    imgUrl: "",
   },
   {
     id: 4,
-    initials: "LR",
-    name: "Lee Robinson",
-    role: "VP of Product @ Vercel",
-    location: "Des Moines, IA",
-    imgUrl: "https://avatars.githubusercontent.com/u/9113740?v=4",
+    initials: "JP",
+    name: "J. Park",
+    role: "RevOps @ Marketplace",
+    location: "Seoul, South Korea",
+    imgUrl: "",
   },
 ];
+
+/* ─── Synthetic featured profile for the detailed sample card ─── */
+const featuredProfile = {
+  initials: "AL",
+  name: "A. Lim",
+  role: "Head of Sales @ Merlion Works",
+  industry: "Software · Singapore",
+  location: "Singapore",
+  email: "a.lim@example.com",
+  phone: "+65 0000 0000",
+  hq: "Sample Street 1, SG 000000 · Singapore",
+  company: "Merlion Works",
+  founded: "2019",
+  scale: "120 Employees",
+  revenue: "$8.5M",
+  corporateProfile:
+    "Merlion Works is a fictional B2B software company shown here to demonstrate enriched sample output.",
+};
 
 /* ─── Profile Card (used in 2×2 search grid) ─── */
 function ProfileCard({ profile }: { profile: typeof profiles[0] }) {
@@ -119,13 +137,13 @@ function ProfileCard({ profile }: { profile: typeof profiles[0] }) {
 
 /* ─── Tech stack + keywords data ─── */
 const techStack = [
-  "JavaSE", "Java", "JavaScript", "Struts", "Hibernate",
-  "Android SDK", "MySQL", "jQuery", "Bootstrap",
+  "React", "Node.js", "PostgreSQL", "Stripe",
+  "HubSpot", "AWS", "Salesforce", "Zapier",
 ];
 
 const keywords = [
-  "SOFTWARE DEVELOPMENT", "DIGITAL PAYMENTS", "RIDE-HAILING",
-  "FINANCIAL TECHNOLOGY", "E-COMMERCE", "SOUTHEAST ASIA", "MARKETPLACE",
+  "B2B SAAS", "SALES TECH", "CRM",
+  "OUTBOUND", "SINGAPORE", "GROWTH", "REVENUE OPS",
 ];
 
 /* ─── Detailed Profile Card (reveals on scroll) ─── */
@@ -148,17 +166,18 @@ function DetailedProfileCard() {
         <div className="p-6 md:p-8">
           {/* ── Header ── */}
           <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
-            {/* Avatar */}
+            {/* Avatar — initials fallback (synthetic sample, no photo) */}
             <div className="relative shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/andrew-sebastian.jpg"
-                alt="Andrew Sebastian"
-                className="w-24 h-24 rounded-2xl object-cover shadow-2xl"
+              <div
+                className="w-24 h-24 rounded-2xl flex items-center justify-center text-2xl font-black shadow-2xl"
                 style={{
+                  background: "color-mix(in oklch, var(--color-accent) 20%, transparent)",
+                  color: "var(--color-accent)",
                   border: "2px solid color-mix(in oklch, var(--color-accent) 30%, transparent)",
                 }}
-              />
+              >
+                {featuredProfile.initials}
+              </div>
               <div
                 className="absolute -bottom-2 -right-2 rounded-full p-1 flex items-center justify-center"
                 style={{
@@ -184,13 +203,13 @@ function DetailedProfileCard() {
                     className="text-3xl font-black mb-0.5"
                     style={{ color: "var(--color-ink)" }}
                   >
-                    Andrew Sebastian
+                    {featuredProfile.name}
                   </h3>
                   <p
                     className="font-medium text-lg leading-tight"
                     style={{ color: "var(--color-accent)" }}
                   >
-                    Senior Back End Engineer @ Goto Group
+                    {featuredProfile.role}
                   </p>
                   <p
                     className="text-sm mt-1 flex items-center gap-1.5 opacity-80"
@@ -202,27 +221,19 @@ function DetailedProfileCard() {
                     >
                       work_outline
                     </span>
-                    Information Technology &amp; Services · Indonesia
+                    {featuredProfile.industry}
                   </p>
                 </div>
-                {/* LinkedIn */}
+                {/* Social — non-link sample badge */}
                 <div className="flex gap-2 self-start sm:self-center">
-                  <a
-                    href="https://www.linkedin.com/in/andrew-sebastian-7350a686"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-2 rounded-lg transition-colors"
+                  <span
+                    aria-label="Sample social profile link (synthetic)"
+                    className="p-2 rounded-lg"
                     style={{
                       background: "var(--color-paper-3)",
                       border: "1px solid color-mix(in oklch, var(--color-rule) 30%, transparent)",
-                      color: "var(--color-ink)",
+                      color: "var(--color-muted)",
                     }}
-                    onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-accent)")
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-ink)")
-                    }
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -234,7 +245,7 @@ function DetailedProfileCard() {
                     >
                       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                     </svg>
-                  </a>
+                  </span>
                 </div>
               </div>
 
@@ -254,7 +265,7 @@ function DetailedProfileCard() {
                   >
                     location_on
                   </span>
-                  Jakarta, Indonesia
+                  {featuredProfile.location}
                 </span>
                 <span
                   className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter"
@@ -270,7 +281,7 @@ function DetailedProfileCard() {
                   >
                     mail
                   </span>
-                  andrew.sebastian@gtl.id
+                  {featuredProfile.email}
                 </span>
               </div>
             </div>
@@ -368,7 +379,7 @@ function DetailedProfileCard() {
                       className="text-sm font-semibold"
                       style={{ color: "var(--color-ink)" }}
                     >
-                      (021) 2910 1072
+                      {featuredProfile.phone}
                     </p>
                   </div>
                   <div>
@@ -382,9 +393,7 @@ function DetailedProfileCard() {
                       className="text-sm font-medium leading-snug"
                       style={{ color: "var(--color-muted)" }}
                     >
-                      Jakarta, Jakarta Raya,
-                      <br />
-                      ID 10110 · Indonesia
+                      {featuredProfile.hq}
                     </p>
                   </div>
                 </div>
@@ -416,10 +425,10 @@ function DetailedProfileCard() {
                 </div>
                 <div className="grid grid-cols-2 gap-y-4 gap-x-2">
                   {[
-                    { label: "Firm", value: "Goto Group", highlight: false },
-                    { label: "Founded", value: "2021", highlight: false },
-                    { label: "Scale", value: "17,000 Employees", highlight: false },
-                    { label: "Est. Revenue", value: "$24.3M", highlight: true },
+                    { label: "Firm", value: featuredProfile.company, highlight: false },
+                    { label: "Founded", value: featuredProfile.founded, highlight: false },
+                    { label: "Scale", value: featuredProfile.scale, highlight: false },
+                    { label: "Est. Revenue", value: featuredProfile.revenue, highlight: true },
                   ].map((item) => (
                     <div key={item.label}>
                       <p
@@ -455,8 +464,7 @@ function DetailedProfileCard() {
                     className="text-[11px] leading-relaxed"
                     style={{ color: "var(--color-muted)" }}
                   >
-                    GoTo is Indonesia&apos;s largest tech group, combining on-demand &amp;
-                    financial services through the Gojek and GoTo Financial brands.
+                    {featuredProfile.corporateProfile}
                   </p>
                 </div>
               </div>
@@ -704,14 +712,22 @@ export default function LiveDeepSearchSection() {
                       style={{ background: "rgba(34,197,94,0.5)" }}
                     />
                   </div>
-                  <span
-                    className="text-[8px] uppercase tracking-[0.2em] font-black"
-                    style={{
-                      color: "color-mix(in oklch, var(--color-muted) 80%, transparent)",
-                    }}
-                  >
-                    Search Analytics
-                  </span>
+                  <div className="flex flex-col items-end gap-0.5">
+                    <span
+                      className="text-[8px] uppercase tracking-[0.2em] font-black"
+                      style={{
+                        color: "color-mix(in oklch, var(--color-muted) 80%, transparent)",
+                      }}
+                    >
+                      Search Analytics
+                    </span>
+                    <span
+                      className="text-[8px] uppercase tracking-[0.2em] font-black"
+                      style={{ color: "var(--color-accent)" }}
+                    >
+                      Sample output · synthetic data
+                    </span>
+                  </div>
                 </div>
                 <div className="p-6 flex items-center justify-center">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
