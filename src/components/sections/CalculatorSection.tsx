@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { ctaHref } from '@/lib/cta';
 
 const CalculatorSection = () => {
   const [credits, setCredits] = useState(100);
@@ -65,6 +67,18 @@ const CalculatorSection = () => {
             <span>10 credits</span>
             <span>1,000 credits</span>
           </div>
+          <Link
+            href={ctaHref("calculator", { credits })}
+            aria-label={`Buy ${credits} credits for $${cost.toFixed(2)}`}
+            className="inline-flex items-center justify-center w-full mt-6 px-6 py-3 font-medium transition-opacity hover:opacity-90"
+            style={{
+              background: 'var(--color-accent)',
+              color: 'var(--color-accent-ink)',
+              borderRadius: 'var(--radius-pill)',
+            }}
+          >
+            Buy {credits} credits — ${cost.toFixed(2)}
+          </Link>
         </div>
       </div>
     </section>
