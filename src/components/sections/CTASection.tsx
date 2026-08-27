@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ctaHref } from "@/lib/cta";
 
 /**
  * CTA Section — "Ready to taste the freshest leads?"
@@ -27,7 +28,7 @@ const CTASection = () => {
           Grow your teams using LeadsLemonade for high-quality prospecting.
         </p>
         <Link
-          href="/maintenance"
+          href={ctaHref("final-cta")}
           className="inline-block px-8 py-4 font-medium text-lg transition-opacity hover:opacity-90"
           style={{
             background: "var(--color-accent)",

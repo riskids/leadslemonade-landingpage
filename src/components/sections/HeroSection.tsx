@@ -1,16 +1,20 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ctaHref } from '@/lib/cta';
 
 const placeholders = [
-  "Try CEO of startups in Singapore..."
+  "Try CEO of startups in Singapore...",
+  "Try growth leads at fintech companies in Jakarta...",
+  "Try RevOps managers using Shopify..."
 ];
 
-const words = ['founder', 'owner', 'talent', 'anyone'];
+const words = ['founders', 'owners', 'talent', 'anyone'];
 
 export default function HeroSection() {
   const [placeholder, setPlaceholder] = useState(placeholders[0]);
-  const [word, setWord] = useState('founder');
+  const [word, setWord] = useState('founders');
 
   useEffect(() => {
     const i = setInterval(() => {
@@ -61,7 +65,7 @@ export default function HeroSection() {
                 fontFamily: "var(--font-display)",
               }}
             >
-              Search for{' '}
+              Find{' '}
               <span className="inline-block overflow-hidden h-[1.1em] align-bottom">
                 <span
                   key={word}
@@ -71,13 +75,13 @@ export default function HeroSection() {
                   {word}
                 </span>
               </span>
-              {' '}<br></br>easily.
+              {' '}<br></br>with one search.
             </h1>
             <p
               className="text-lg md:text-xl max-w-lg"
               style={{ color: 'var(--color-muted)' }}
             >
-              Find anyone using natural language, verify emails in real-time, and start for as low as $5.
+              Search with natural language, verify emails in real time, and start with 100 credits for $5.
             </p>
           </div>
 
@@ -87,6 +91,7 @@ export default function HeroSection() {
               <input
                 type="text"
                 placeholder={placeholder}
+                aria-label="Lead search query"
                 className="w-full px-6 py-4 border focus:outline-none focus:ring-2 transition-colors"
                 style={{
                   background: 'var(--color-paper-2)',
@@ -95,8 +100,8 @@ export default function HeroSection() {
                   '--tw-ring-color': 'var(--color-accent)',
                 } as React.CSSProperties}
               />
-              <a
-                href="/maintenance"
+              <Link
+                href={ctaHref("hero-search")}
                 className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 font-medium"
                 style={{
                   background: 'var(--color-accent)',
@@ -105,7 +110,7 @@ export default function HeroSection() {
                 }}
               >
                 Search
-              </a>
+              </Link>
             </div>
           </div>
         </div>
