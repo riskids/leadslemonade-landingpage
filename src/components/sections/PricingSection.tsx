@@ -41,7 +41,7 @@ const PricingSection = () => {
       plan: "monthly",
       price: "$29.90",
       unit: "/ mo",
-      description: "For teams scaling outbound. No credit ceiling.",
+      description: "For teams scaling outbound. 1,000 credits included monthly.",
       features: [
         "1,000 lead credits / month",
         "Volume discount on enrichment",
@@ -103,7 +103,8 @@ const PricingSection = () => {
                 position: 'relative',
                 ...(tier.popular
                   ? {
-                      boxShadow: '0 24px 60px -30px rgba(0, 0, 60, 0.35)',
+                      boxShadow: 'var(--shadow-card)',
+                      border: '1px solid color-mix(in oklch, var(--color-accent) 40%, transparent)',
                     }
                   : {}),
               }}
@@ -125,7 +126,7 @@ const PricingSection = () => {
                     padding: '4px 12px',
                   }}
                 >
-                  Recomended
+                  Recommended
                 </span>
               )}
 
