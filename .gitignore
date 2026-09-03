@@ -42,6 +42,7 @@ next-env.d.ts
 
 # Multi-agent system artifacts
 reports/
+graphify-out/
 *.secret
 *.key
 id_rsa*
